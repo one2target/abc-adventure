@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Alfie ABC">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
-<meta name="description" content="An offline-friendly English alphabet adventure with Alfie. Learn letters, sounds and words, and build a rocket.">
+<meta name="description" content="Английские буквы A–F: записанная озвучка, задания и подарки для жирафика.">
 <title>ABC Adventure · Alfie</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2218%22%20fill%3D%22%2317664c%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2246%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-weight%3D%22bold%22%20font-size%3D%2249%22%20fill%3D%22white%22%3Ea%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
@@ -679,44 +679,6 @@ main {
   background:var(--yellow);
   box-shadow:0 0 0 4px #fff0c9;
 }
-.rocket-stage {
-  height:225px;
-  width:240px;
-  position:relative;
-  display:grid;
-  place-items:center;
-  margin:12px auto 20px;
-  overflow:hidden;
-  border-radius:50%;
-  background:#e5f4ed;
-}
-.rocket {
-  height:196px;
-  width:150px;
-  filter:drop-shadow(0 5px 0 #22532e0d);
-}
-.rocket .part {
-  opacity:1;
-  transition:opacity .4s;
-}
-.rocket .missing {
-  opacity:.1;
-}
-.rocket.launch {
-  animation:launch 2.8s ease-in-out .5s both;
-}
-.rocket-star {
-  position:absolute;
-  color:#8ebba0;
-  font-size:20px;
-  left:30px;
-  top:60px;
-}
-.rocket-star.other {
-  left:auto;
-  right:22px;
-  top:135px;
-}
 .progress-screen {
   text-align:center;
   padding:25px 0;
@@ -957,17 +919,6 @@ main {
   }
   to {
     box-shadow:inset 0 -60px 0 #c9e6d4;
-  }
-}
-@keyframes launch {
-  0%,25% {
-    transform:translateY(0);
-  }
-  40% {
-    transform:translateY(8px);
-  }
-  100% {
-    transform:translateY(-340px);
   }
 }
 @keyframes confetti {
@@ -1348,6 +1299,60 @@ main {
   .word-label { font-size:36px; margin-bottom:12px; }
   .interlude { min-height:0; padding:20px 0; }
 }
+/* CHARACTER & REWARDS — full canvases, responsive registration, unchanged PNGs. */
+.character-stage {position:relative;isolation:isolate;width:min(100%,250px);aspect-ratio:2/3;margin:12px auto;user-select:none;-webkit-user-select:none;pointer-events:none;border-radius:28px;background:#111009;}
+.character-layer {position:absolute;inset:0;pointer-events:none;}
+.character-layer img {position:absolute;max-width:none;object-fit:contain;user-select:none;-webkit-user-select:none;}
+.character-layer[data-layer="base"] img {border-radius:28px;}
+.character-fallback {display:none;font-size:100px;position:absolute;inset:0;align-items:center;justify-content:center;}
+.base-unavailable .character-fallback {display:flex;}
+.base-unavailable {background:var(--mint);}
+.base-unavailable .character-layer {display:none;}
+.hero-scene .character-home {width:180px;margin:0 auto;}
+.hero-scene {padding:16px 10px;}
+.hero-scene .speech-bubble {z-index:80;}
+.reward-screen,.wardrobe-screen {text-align:center;padding:20px 0;}
+.reward-screen h1,.wardrobe-screen h1 {font-size:clamp(30px,5vw,44px);}
+.reward-screen>p {margin:12px 0 4px;color:var(--muted);}
+.reward-layout,.wardrobe-layout {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:28px;max-width:750px;margin:16px auto 24px;}
+.reward-choices h2,.outfit-category h2 {font-size:22px;letter-spacing:-.025em;margin:10px 0 14px;}
+.outfit-options {display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.outfit-option {position:relative;display:grid;place-items:center;border:3px solid var(--line);background:#fffdf5;border-radius:23px;min-height:140px;padding:4px;}
+.outfit-option img {width:100%;height:150px;object-fit:contain;user-select:none;-webkit-user-select:none;}
+.outfit-option.selected {border-color:var(--green);background:#e5f5e9;box-shadow:0 0 0 3px #d4efdf;}
+.outfit-check {display:none;position:absolute;right:6px;top:6px;background:var(--green);color:white;border-radius:50%;width:26px;height:26px;align-items:center;justify-content:center;}
+.selected .outfit-check {display:flex;}
+.reward-next {min-height:116px;margin-top:18px;}
+.reward-next p,.wardrobe-empty {font-size:14px;line-height:1.5;color:var(--muted);margin-bottom:15px;}
+.reward-next .primary {width:100%;}
+.reward-next .primary:disabled {opacity:.65;}
+.outfit-category+.outfit-category {margin-top:24px;}
+.dressed .character-stage {animation:bounce .9s ease;}
+@media(max-width:650px){
+ .brand{gap:8px;} .brand small{font-size:8px;letter-spacing:1.4px;} .tools .icon-button{width:52px;height:52px;}
+ .reward-layout,.wardrobe-layout {grid-template-columns:1fr;gap:8px;margin:6px auto 18px;}
+ .character-stage {width:170px;}
+ .hero-scene .character-home {width:125px;}
+ .hero-scene {min-height:225px;padding:10px 5px;}
+ .reward-screen,.wardrobe-screen {padding:14px 0;}
+ .reward-screen .stars {font-size:24px;margin:0 0 12px;}
+ .reward-screen>p {font-size:14px;margin-top:10px;}
+ .outfit-options {max-width:360px;margin:auto;}
+ .outfit-option {min-height:120px;}
+ .outfit-option img {height:132px;}
+ .reward-next {min-height:70px;margin-top:14px;}
+ .reward-choices h2 {font-size:20px;}
+ .reward-screen .repeat {margin-top:8px;}
+ .wardrobe-empty {max-width:290px;margin:auto;}
+ .wardrobe-screen .character-stage{width:140px;}
+ .wardrobe-screen .outfit-option{min-height:105px;}
+ .wardrobe-screen .outfit-option img{height:100px;}
+ .wardrobe-screen .outfit-category h2{font-size:18px;margin:6px 0 10px;}
+ .wardrobe-screen .outfit-category+.outfit-category{margin-top:14px;}
+}
+@media(max-height:650px) and (max-width:650px){.character-stage{width:145px;}.hero-scene .character-home{width:105px;}.hero-scene{min-height:180px;}}
+@media(orientation:landscape) and (max-height:500px){.reward-layout,.wardrobe-layout{grid-template-columns:1fr 1fr;}.character-stage{width:155px;}.hero-scene .character-home{width:115px;}}
+
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after {
     animation:none!important;
@@ -1359,18 +1364,17 @@ main {
 </head>
 <body>
 <div class="app" id="app">
-<header class="topbar"><div class="brand" aria-label="Alfie ABC Adventure"><span class="brand-mark" aria-hidden="true">a</span><div>alfie<span aria-hidden="true">.</span><small>ABC ADVENTURE</small></div></div><nav class="tools" aria-label="App controls"><button class="icon-button small-icon hide" id="home-button" aria-label="Home"></button><button class="icon-button small-icon" id="progress-button" aria-label="My rocket and stars">☆</button><button class="icon-button" id="sound-button" aria-label="Turn sound off" aria-pressed="false">🔊</button></nav></header>
+<header class="topbar"><div class="brand" aria-label="Alfie ABC Adventure"><span class="brand-mark" aria-hidden="true">a</span><div>alfie<span aria-hidden="true">.</span><small>ABC ADVENTURE</small></div></div><nav class="tools" aria-label="App controls"><button class="icon-button small-icon hide" id="home-button" aria-label="Home"></button><button class="icon-button small-icon" id="progress-button" aria-label="Жирафик — гардероб">👕</button><button class="icon-button" id="sound-button" aria-label="Turn sound off" aria-pressed="false">🔊</button></nav></header>
 <div id="storage-notice" class="storage-notice hide" lang="ru">Браузер не разрешает сохранять прогресс. Игра работает, пока открыта эта вкладка.</div>
 <main id="main"></main>
 <footer class="footer"><span class="footer-note">Made for little explorers <span aria-hidden="true">✦</span></span><button id="parent-button" class="parent-button" aria-label="Parent view. Hold for two seconds" title="Hold for 2 seconds · Удерживайте 2 секунды">⚙ <span>Parents</span></button></footer>
 </div>
 <div id="modal-layer" class="backdrop" hidden></div><div id="confetti" class="confetti" aria-hidden="true"></div>
+<script src="./assets.js"></script>
+<script src="./audio-manager.js"></script>
 <script>
 'use strict';
-/* ABC Adventure — no libraries, no network calls, no build step.
-   Add a record below to extend the course. Groups, progress and games follow the data.
-   Optional media: image: 'images/apple.webp', soundAudio: 'audio/a-sound.mp3'.
-   Leave an asset null to use emoji / English speech without requesting missing files. */
+/* DATA — existing A–F curriculum. Assets are indexed from real files. */
 const DEBUG = false;
 const DEMO = new URLSearchParams(location.search).get('demo') === '1';
 const STORAGE_KEY = DEMO ? 'alfie-abc-demo-v1' : 'alfie-abc-v1';
@@ -1382,7 +1386,28 @@ const letters = [
  {letter:'E',lowercase:'e',sound:'ɛ',name:'ee',word:'Egg',emoji:'🥚',color:'#287b59',tint:'#e4f5e9',image:null,letterAudio:null,soundAudio:null,wordAudio:null,distractors:['F','L']},
  {letter:'F',lowercase:'f',sound:'f',name:'ef',word:'Fish',emoji:'🐟',color:'#217e91',tint:'#e2f4f8',image:null,letterAudio:null,soundAudio:null,wordAudio:null,distractors:['T','E']}
 ];
-const ALFIE = {emoji:'🤖',image:null}; // Replace image with a PNG/WebP path when ready.
+const AUDIO_TEXT = {
+ welcome:'Привет! Давай учить английские буквы!',start:'Начнём!',new_letter:'Познакомимся с новой буквой.',look_letter:'Посмотри на букву.',listen:'Послушай внимательно.',find_letter:'Найди эту букву.',find_small_letter:'Найди маленькую букву.',find_picture:'Найди правильную картинку.',which_starts:'Какое слово начинается с этой буквы?',which_letter:'С какой буквы начинается это слово?',choose_letter:'Выбери правильную букву.',choose_picture:'Выбери правильную картинку.',listen_word:'Послушай слово.',repeat:'Послушай ещё раз.',try_again:'Попробуй ещё раз.',almost:'Почти получилось!',correct:'Правильно!',great:'Отлично!',well_done:'Молодец!',super:'Супер!',amazing:'Замечательно!',next:'Дальше!',level_complete:'Уровень пройден!',reward:'Ты получил подарок для жирафика!',choose_reward:'Выбери подарок.',new_clothes:'У жирафика новая одежда!',new_item:'У жирафика новый подарок!',dress_giraffe:'Давай оденем жирафика!',challenge:'Поиграем с буквами!',final_challenge:'Последнее испытание!',three_correct:'Три правильных ответа!',all_done:'Ты всё прошёл!',come_again:'Приходи играть ещё!',repeat_letters:'Повторим буквы.',need_practice:'Давай потренируемся ещё.',giraffe_happy:'Жирафик очень рад!'
+};
+const ru=key=>({key,text:AUDIO_TEXT[key]||'',lang:'ru-RU'});
+const enName=d=>({key:d.lowercase+'_name',text:d.name||d.letter,lang:'en-US'});
+const enSound=d=>({key:d.lowercase+'_sound',text:`Listen to the first sound in ${d.word}. ${d.word}.`,lang:'en-US'});
+const enWord=d=>({key:d.word.toLowerCase(),text:d.word,lang:'en-US'});
+for(const d of letters){d.letterAudio=MEDIA_ASSETS.audio[d.lowercase+'_name']?.src||null;d.soundAudio=MEDIA_ASSETS.audio[d.lowercase+'_sound']?.src||null;d.wordAudio=MEDIA_ASSETS.audio[d.word.toLowerCase()]?.src||null;}
+/* CHARACTER DATA — normalized registration on one 1024 × 1536 stage.
+   These source images are NOT registered overlays. Rectangles map their entire
+   unmodified canvases to the body/head; no clipping, pixel offsets or filters.
+   Future pre-registered overlays simply use [0,0,1,1]. */
+const characterConfig={base:'giraffe_base',width:1024,height:1536,
+ layers:{backpack:0,base:10,shoes:20,jacket:30,neck:40,headwear:50,handItem:60,special:70},
+ categories:{jacket:{label:'Куртка',rect:[.293,.254,.52,.52]},headwear:{label:'Головной убор',rect:[.285,-.075,.455,.3033]},neck:{label:'Украшение',rect:[0,0,1,1]},backpack:{label:'Рюкзак',rect:[0,0,1,1]},shoes:{label:'Обувь',rect:[0,0,1,1]},handItem:{label:'В руках',rect:[0,0,1,1]},special:{label:'Особый подарок',rect:[0,0,1,1]}}
+};
+const rewardConfig=[
+ {id:'reward_abc',afterLetters:['A','B','C'],category:'jacket',prompt:'Выбери куртку',options:[{id:'jacket_01',image:MEDIA_ASSETS.images.jacket_01?.src,label:'Куртка со звёздочкой'},{id:'jacket_02',image:MEDIA_ASSETS.images.jacket_02?.src,label:'Сине-жёлтая куртка'}]},
+ {id:'reward_def',afterLetters:['D','E','F'],category:'headwear',prompt:'Выбери головной убор',options:[{id:'headwear_01',image:MEDIA_ASSETS.images.headwear_01?.src,label:'Шляпа с цветком'},{id:'headwear_02',image:MEDIA_ASSETS.images.headwear_02?.src,label:'Панама с листочком'}]}
+];
+const itemCatalog=new Map(rewardConfig.flatMap(r=>r.options.map(item=>[item.id,{...item,category:r.category}])));
+const blankCharacter=()=>({unlockedItems:[],equipped:Object.fromEntries(Object.keys(characterConfig.categories).map(k=>[k,null]))});
 const GROUP_SIZE=3, MINI_LENGTH=5, FINAL_LENGTH=10;
 const CORE_TYPES=['find','letterPicture','pictureLetter'];
 const MINI_TYPES=[...CORE_TYPES,'wordPicture'];
@@ -1394,13 +1419,14 @@ const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 const log=(...args)=>{if(DEBUG)console.log('[Alfie]',...args);};
 const icons={arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>',speaker:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 5-6 4H2v6h3l6 4V5Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>',home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3V10Z"/><path d="M9 20v-7h6v7"/></svg>'};
 const blankStats=()=>({attempts:0,correct:0,mistakes:0,mastery:0,skills:[],practiceDebt:0});
-const initialState=()=>({version:1,started:false,completed:false,soundEnabled:true,cursor:{phase:'lesson',index:0,step:0},stats:Object.fromEntries(letters.map(d=>[d.letter,blankStats()])),game:null,question:null,reviews:[],questionSerial:0});
+/* STATE & STORAGE — keep the v1 key so existing progress survives. */
+const initialState=()=>({version:2,characterState:blankCharacter(),completedBlocks:[],claimedRewards:[],rewardFlow:null,started:false,completed:false,soundEnabled:true,cursor:{phase:'lesson',index:0,step:0},stats:Object.fromEntries(letters.map(d=>[d.letter,blankStats()])),game:null,question:null,reviews:[],questionSerial:0});
 let storageAvailable=true;
 function loadProgress(){
  const fresh=initialState();
  try{
   const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return fresh;
-  const saved=JSON.parse(raw);if(saved.version!==1)return fresh;
+  const saved=JSON.parse(raw);if(![1,2].includes(saved.version))return fresh;
   fresh.soundEnabled=saved.soundEnabled!==false;
   fresh.started=Boolean(saved.started);fresh.completed=Boolean(saved.completed);
   for(const d of letters){const s=saved.stats?.[d.letter];if(!s)continue;const t=fresh.stats[d.letter];
@@ -1421,53 +1447,45 @@ function loadProgress(){
   if(saved.question&&validQuestion(saved.question))fresh.question=saved.question;
   // An expanded letters[] resumes learning the first newly added/unmastered item.
   if(fresh.completed&&letters.some(d=>fresh.stats[d.letter].mastery<3)){fresh.completed=false;fresh.cursor={phase:'lesson',index:letters.findIndex(d=>fresh.stats[d.letter].mastery<3),step:0};fresh.question=null;fresh.game=null;}
+  migrateRewards(fresh,saved);
   return fresh;
  }catch(e){log('Storage unavailable or invalid',e);return fresh;}
 }
 function saveProgress(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(AppState));storageAvailable=true;}catch(e){storageAvailable=false;log('Progress kept in memory',e);}$('#storage-notice').classList.toggle('hide',storageAvailable);}
 function validQuestion(q){return byLetter.has(q.letter)&&FINAL_TYPES.includes(q.type)&&Array.isArray(q.options)&&q.options.length>=1&&q.options.length<=3&&new Set(q.options).size===q.options.length&&q.options.includes(q.letter)&&q.options.every(x=>typeof x==='string'&&x.length<=2&&(q.type==='find'||byLetter.has(x)));}
-const AppState=loadProgress();
-let view='home',lastView='home',answerLocked=false,transitionTimer=null,viewEpoch=0,repeatInstruction=()=>{},restoreFocus=null;
-/* Audio is unlocked only by a user gesture. Every sequence has a cancellation token.
-   Native speech cannot reliably produce IPA phonemes. If no recording is supplied,
-   teach the initial sound IN its word instead of reading IPA as a letter name. */
-let audioUnlocked=false,audioContext=null,audioEpoch=0,currentAudio=null,settleAudio=null,settleSpeech=null;
-let englishVoice=null;
-function selectVoice(){if(!('speechSynthesis'in window))return;const voices=speechSynthesis.getVoices();englishVoice=voices.find(v=>/^en-US$/i.test(v.lang)&&v.localService)||voices.find(v=>/^en-US$/i.test(v.lang))||voices.find(v=>/^en[-_]/i.test(v.lang))||null;}
-selectVoice();if('speechSynthesis'in window)speechSynthesis.addEventListener('voiceschanged',selectVoice);
-function unlockAudio(){
- if(!audioUnlocked){audioUnlocked=true;
-  try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){audioContext=new AC();const b=audioContext.createBuffer(1,1,22050),s=audioContext.createBufferSource();s.buffer=b;s.connect(audioContext.destination);s.start(0);}}catch(e){log(e);}
-  // Called in START's click stack, including when a later sequence uses native speech.
-  if('speechSynthesis'in window&&AppState.soundEnabled){const u=new SpeechSynthesisUtterance('');u.lang='en-US';speechSynthesis.speak(u);}
+/* Migration uses course position, not mastery alone: a completed mini challenge
+   is required. A pending gift never replaces the saved lesson/question. */
+function migrateRewards(state,saved){
+ const known=rewardConfig.map(r=>r.id);
+ state.completedBlocks=Array.isArray(saved.completedBlocks)?[...new Set(saved.completedBlocks.filter(id=>known.includes(id)))]:[];
+ for(const reward of rewardConfig){
+  const end=letters.findIndex(d=>d.letter===reward.afterLetters.at(-1)),c=state.cursor;
+  const passed=end>=0&&(c.index>end||(c.index===end&&['miniResult','finalIntro','final','results'].includes(c.phase))||state.completed);
+  if(passed&&!state.completedBlocks.includes(reward.id))state.completedBlocks.push(reward.id);
  }
- if(audioContext?.state==='suspended')audioContext.resume().catch(()=>{});
+ for(const r of rewardConfig.filter(r=>state.completedBlocks.includes(r.id)))state.characterState.unlockedItems.push(...r.options.map(o=>o.id));
+ for(const [category,item] of Object.entries(saved.characterState?.equipped||{})){
+  if(state.characterState.unlockedItems.includes(item)&&itemCatalog.get(item)?.category===category)state.characterState.equipped[category]=item;
+ }
+ state.claimedRewards=Array.isArray(saved.claimedRewards)?[...new Set(saved.claimedRewards.filter(id=>state.completedBlocks.includes(id)))]:[];
+ const flow=saved.rewardFlow,r=rewardConfig.find(r=>r.id===flow?.id);
+ if(r&&state.completedBlocks.includes(r.id))state.rewardFlow={id:r.id,resume:flow.resume==='after-mini'?'after-mini':'course',selected:r.options.some(o=>o.id===flow.selected)?flow.selected:null};
+ ensureRewardFlow(state);
 }
-function stopAudio(){audioEpoch++;if(settleSpeech)settleSpeech(false);if('speechSynthesis'in window)speechSynthesis.cancel();if(settleAudio)settleAudio(false);if(currentAudio){currentAudio.pause();currentAudio=null;}}
-function speak(text,token=audioEpoch){
- if(!audioUnlocked||!AppState.soundEnabled||token!==audioEpoch||!('speechSynthesis'in window))return Promise.resolve(false);
- return new Promise(resolve=>{const utterance=new SpeechSynthesisUtterance(text);utterance.lang='en-US';utterance.rate=.82;utterance.pitch=1.06;if(englishVoice)utterance.voice=englishVoice;
-  let finished=false;let watchdog;
-  const finish=ok=>{if(finished)return;finished=true;clearTimeout(watchdog);if(settleSpeech===finish)settleSpeech=null;resolve(ok);};
-  settleSpeech=finish;utterance.onend=()=>finish(true);utterance.onerror=()=>finish(false);watchdog=setTimeout(()=>{finish(false);if(token===audioEpoch)speechSynthesis.cancel();},Math.max(5000,text.length*180));
-  try{speechSynthesis.speak(utterance);}catch(e){finish(false);}
- });
+function ensureRewardFlow(state=AppState){
+ if(state.rewardFlow)return;
+ const reward=rewardConfig.find(r=>state.completedBlocks.includes(r.id)&&!state.claimedRewards.includes(r.id));
+ if(reward)state.rewardFlow={id:reward.id,resume:state.cursor.phase==='miniResult'&&reward.afterLetters.at(-1)===letters[state.cursor.index].letter?'after-mini':'course',selected:null};
 }
-function playAudio(file,token=audioEpoch){
- if(!file||!audioUnlocked||!AppState.soundEnabled||token!==audioEpoch)return Promise.resolve(false);
- return new Promise(resolve=>{let done=false;let watchdog;const a=new Audio();currentAudio=a;
-  const finish=ok=>{if(done)return;done=true;clearTimeout(watchdog);a.onended=a.onerror=null;a.pause();if(currentAudio===a)currentAudio=null;if(settleAudio===finish)settleAudio=null;resolve(ok);};
-  settleAudio=finish;a.onended=()=>finish(true);a.onerror=()=>finish(false);watchdog=setTimeout(()=>finish(false),7000);a.src=file;
-  try{const result=a.play();if(result?.catch)result.catch(()=>finish(false));}catch(e){finish(false);}
- });
-}
-async function playLetterName(letter,token=audioEpoch){const d=typeof letter==='string'?byLetter.get(letter):letter;if(d&&!(await playAudio(d.letterAudio,token)))await speak(d.name||d.letter,token);}
-async function playLetterSound(d,token=audioEpoch){if(!(await playAudio(d.soundAudio,token)))await speak(`Listen to the first sound in ${d.word.toLowerCase()}. ${d.word}.`,token);}
-async function playWord(word,token=audioEpoch){const d=typeof word==='string'?letters.find(d=>d.word===word):word;if(d&&!(await playAudio(d.wordAudio,token)))await speak(d.word,token);}
-function audioSequence(fn){stopAudio();const token=audioEpoch;return Promise.resolve(fn(token)).catch(e=>log('Audio fallback',e));}
-function chime(){if(!audioContext||!AppState.soundEnabled)return;try{const t=audioContext.currentTime;[523.25,659.25,783.99].forEach((f,i)=>{const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t+i*.08);g.gain.linearRampToValueAtTime(.045,t+i*.08+.02);g.gain.exponentialRampToValueAtTime(.001,t+i*.08+.23);o.connect(g);g.connect(audioContext.destination);o.start(t+i*.08);o.stop(t+i*.08+.25);});}catch(e){log(e);}}
-function setInstruction(fn){repeatInstruction=()=>audioSequence(fn);repeatInstruction();}
-/* Question selection: distinct choices, shuffled positions, weighted practice, and
+const AppState=loadProgress();
+let view=AppState.rewardFlow?'reward':'home',lastView='home',answerLocked=false,transitionTimer=null,viewEpoch=0,restoreFocus=null,rewardReady=Boolean(AppState.rewardFlow?.selected);
+/* AUDIO — all screen instructions and reactions pass through this manager. */
+const AudioManager=createAudioManager({assets:MEDIA_ASSETS.audio,enabled:AppState.soundEnabled,debug:DEBUG,gap:500});
+function unlockAudio(){AudioManager.unlock();}
+function stopAudio(){AudioManager.stop();}
+function repeatInstruction(){return AudioManager.repeatLastInstruction();}
+function setInstruction(items){return AudioManager.setInstruction(items);}
+/* QUESTIONS — distinct choices, shuffled positions, weighted practice, and
    a delayed review queue. Questions are generated on demand so recent mistakes count. */
 function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function getRandomItems(items,count){return shuffle(items).slice(0,count);}
@@ -1501,55 +1519,71 @@ function ensureQuestion(){
 /* Small reusable renderers. Text is escaped; optional media failures replace only
    their own image, preserving layout and the button's accessible label. */
 function media(item,cls=''){return `<span class="${cls}" aria-hidden="true">${item.image?`<img src="${escapeHTML(item.image)}" alt="" data-fallback="${escapeHTML(item.emoji)}">`:item.emoji}</span>`;}
-function robot(){return media(ALFIE,'mascot');}
-function wireMedia(){document.querySelectorAll('img[data-fallback]').forEach(img=>{const fallback=()=>{img.replaceWith(document.createTextNode(img.dataset.fallback));};img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();});}
+function buddy(){return '<span class="mascot" aria-hidden="true">🦒</span>';}
+const failedImages=new Set();
+function wireMedia(){
+ document.querySelectorAll('img[data-fallback]').forEach(img=>{const fallback=()=>{img.replaceWith(document.createTextNode(img.dataset.fallback));};img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();});
+ document.querySelectorAll('img[data-character-asset]').forEach(img=>{const fallback=()=>{const src=img.getAttribute('src');if(!failedImages.has(src)){failedImages.add(src);console.warn('[Alfie image] Image could not be loaded:',src);}img.hidden=true;if(img.dataset.characterAsset==='giraffe_base')img.parentElement.classList.add('base-unavailable');};img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();});
+}
 function letterStrip(){return `<div class="letter-strip" aria-label="Letter progress">${letters.map((d,i)=>`<div class="letter-chip ${AppState.stats[d.letter].mastery===3?'mastered':''} ${view==='course'&&i===AppState.cursor.index&&AppState.cursor.phase==='lesson'?'current':''}" aria-label="${d.letter}: ${AppState.stats[d.letter].mastery===3?'mastered':'learning'}"><span>${escapeHTML(d.letter)}</span><span class="star" aria-hidden="true">${AppState.stats[d.letter].mastery===3?'★':'☆'}</span></div>`).join('')}</div>`;}
-function journeyStrip(){return `<div class="journey-strip"><div class="journey-copy"><b>Little letters. Big adventures.</b><span>Collect a star. Build your rocket.</span></div>${letterStrip()}</div>`;}
-function rocketSVG(launch=false){const has=i=>Boolean(letters[i]&&AppState.stats[letters[i].letter].mastery===3),part=i=>`class="part ${has(i)?'':'missing'}"`;
- // The first six achievements assemble the six illustrated rocket components.
- return `<div class="rocket-stage"><span class="rocket-star" aria-hidden="true">✦</span><span class="rocket-star other" aria-hidden="true">✦</span><svg class="rocket ${launch?'launch':''}" viewBox="0 0 150 220" role="img" aria-label="Your rocket: ${letters.filter(d=>AppState.stats[d.letter].mastery===3).length} stars collected"><g ${part(5)}><path d="M60 166q-8 32 15 51 23-19 15-51" fill="#ffbd39"/><path d="M68 167q-2 21 7 34 9-13 7-34" fill="#ff7842"/></g><g ${part(3)}><path d="M49 102Q16 114 21 164l31-18" fill="#508a71"/></g><g ${part(4)}><path d="M101 102q33 12 28 62l-31-18" fill="#508a71"/></g><g ${part(2)}><path d="m50 150 8 28h34l8-28" fill="#547066"/></g><g ${part(0)}><path d="M75 12C42 39 37 101 48 157h54C113 101 108 39 75 12Z" fill="#fff" stroke="#c4ded0" stroke-width="2"/><path d="M75 12C60 24 50 43 46 65h58C100 43 90 24 75 12Z" fill="#ed8a52"/></g><g ${part(1)}><circle cx="75" cy="97" r="23" fill="#d0dcd7"/><circle cx="75" cy="97" r="16" fill="#6cafc0"/><path d="m67 93 6-6" stroke="white" stroke-width="5" stroke-linecap="round"/></g></svg></div>`;}
-function renderHome(){return `<section class="screen"><div class="home"><div class="home-copy"><p class="eyebrow">A little adventure in English</p><h1>ABC<br> <em>Adventure</em></h1><p class="subline">Let's learn English!</p><div class="home-actions"><button class="primary" data-action="start">${AppState.started?'CONTINUE':'START'} ${icons.arrow}</button>${AppState.started?'<button class="text-button" data-action="reset">START OVER</button>':''}</div></div><div class="hero-scene"><span class="floating-letter tile-a" aria-hidden="true">A</span><span class="floating-letter tile-b" aria-hidden="true">B</span><span class="floating-letter tile-c" aria-hidden="true">C</span><div class="speech-bubble">Hi! I'm Alfie.</div>${robot()}<span class="name-tag">YOUR LEARNING BUDDY</span><span class="spark" aria-hidden="true">✦</span></div></div>${journeyStrip()}</section>`;}
-function lessonTop(){const c=AppState.cursor;return `<div class="lesson-top"><span class="lesson-label">LET'S LEARN ${escapeHTML(letters[c.index].letter)}</span><div class="step-track" role="progressbar" aria-label="Lesson steps" aria-valuemin="0" aria-valuemax="5" aria-valuenow="${c.step+1}">${Array.from({length:5},(_,i)=>`<span class="${i<=c.step?'done':''}"></span>`).join('')}</div></div>`;}
+function journeyStrip(){return `<div class="journey-strip"><div class="journey-copy"><b>Буква за буквой — к новым открытиям</b><span>Учись и выбирай подарки для жирафика.</span></div>${letterStrip()}</div>`;}
+/* CHARACTER — every layer shares one responsive stage and one coordinate system. */
+function renderCharacter(size='large'){
+ const layers=[{id:characterConfig.base,category:'base',image:MEDIA_ASSETS.images[characterConfig.base]?.src,rect:[0,0,1,1]},...Object.values(AppState.characterState.equipped).filter(Boolean).map(id=>itemCatalog.get(id)).filter(Boolean)];
+ return `<div class="character-stage character-${size}" role="img" aria-label="Жирафик${layers.length>1?' в выбранной одежде':''}"><span class="character-fallback" aria-hidden="true">🦒</span>${layers.sort((a,b)=>(a.zIndex??characterConfig.layers[a.category])-(b.zIndex??characterConfig.layers[b.category])).map(item=>{if(!item.image)return '';const rect=item.rect||characterConfig.categories[item.category].rect;return `<div class="character-layer" data-layer="${item.category}" style="z-index:${item.zIndex??characterConfig.layers[item.category]}"><img data-character-asset="${item.id}" src="${escapeHTML(item.image)}" alt="" draggable="false" style="left:${rect[0]*100}%;top:${rect[1]*100}%;width:${rect[2]*100}%;height:${rect[3]*100}%"></div>`;}).join('')}</div>`;
+}
+function outfitOptions(reward,action){return `<div class="outfit-options" role="group" aria-label="${escapeHTML(characterConfig.categories[reward.category].label)}">${reward.options.filter(item=>AppState.characterState.unlockedItems.includes(item.id)).map(item=>`<button class="outfit-option ${AppState.characterState.equipped[reward.category]===item.id?'selected':''}" data-action="${action}" data-item="${item.id}" aria-label="${escapeHTML(item.label)}" aria-pressed="${AppState.characterState.equipped[reward.category]===item.id}"><img src="${escapeHTML(item.image||'')}" data-character-asset="${item.id}" alt="" draggable="false"><span class="outfit-check" aria-hidden="true">✓</span></button>`).join('')}</div>`;}
+function renderWardrobe(){const available=rewardConfig.filter(r=>AppState.completedBlocks.includes(r.id));return `<section class="screen wardrobe-screen"><p class="eyebrow">Твой друг</p><h1>Жирафик</h1><div class="wardrobe-layout"><div id="character-preview">${renderCharacter()}</div><div class="wardrobe-options">${available.length?available.map(r=>`<section class="outfit-category"><h2>${escapeHTML(characterConfig.categories[r.category].label)}</h2>${outfitOptions(r,'equip')}</section>`).join(''):'<p class="wardrobe-empty">Пройди буквы A–C и мини-игру, чтобы выбрать первый подарок.</p>'}</div></div><button class="primary" data-action="back">В игру ${icons.arrow}</button></section>`;}
+/* REWARDS — a completed block unlocks both options. Claim and equipment are saved
+   immediately; rewardFlow survives closing before or after the first selection. */
+function finishBlock(){const group=groups[Math.floor(AppState.cursor.index/GROUP_SIZE)].map(d=>d.letter);const reward=rewardConfig.find(r=>r.afterLetters.length===group.length&&r.afterLetters.every(l=>group.includes(l)));if(!reward)return;if(!AppState.completedBlocks.includes(reward.id))AppState.completedBlocks.push(reward.id);AppState.characterState.unlockedItems=[...new Set([...AppState.characterState.unlockedItems,...reward.options.map(o=>o.id)])];ensureRewardFlow();log('Unlocked',reward.id,AppState.characterState.unlockedItems);}
+function renderReward(){const flow=AppState.rewardFlow,r=rewardConfig.find(r=>r.id===flow?.id);if(!r)return renderWardrobe();return `<section class="screen reward-screen"><div class="stars" aria-hidden="true">★ ★ ★</div><h1>${flow.selected?'Как здорово!':'Уровень пройден!'}</h1><p>${flow.selected?'Жирафик рад новому подарку.':'Ты получил подарок для жирафика!'}</p><div class="reward-layout"><div id="character-preview" class="${flow.selected?'dressed':''}">${renderCharacter()}</div><div class="reward-choices"><h2>${escapeHTML(r.prompt)}</h2>${outfitOptions(r,'claim-reward')}<div class="reward-next" aria-live="polite">${flow.selected?`<p>Подарок сохранён ✓</p><button class="primary" data-action="reward-next" ${rewardReady?'':'disabled'}>Дальше ${icons.arrow}</button>`:'<p>Наряды можно менять в гардеробе.</p>'}</div></div></div><button class="repeat" data-action="repeat" aria-label="Повторить инструкцию">${icons.speaker} Послушать</button></section>`;}
+function equipItem(id){const item=itemCatalog.get(id);if(!item||!AppState.characterState.unlockedItems.includes(id))return false;AppState.characterState.equipped[item.category]=id;saveProgress();log('Equipped',id);return true;}
+function chooseReward(id){const flow=AppState.rewardFlow,r=rewardConfig.find(r=>r.id===flow?.id);if(!r||!r.options.some(o=>o.id===id))return;if(!equipItem(id))return;flow.selected=id;if(!AppState.claimedRewards.includes(r.id))AppState.claimedRewards.push(r.id);saveProgress();rewardReady=false;showScreen();celebrate();const epoch=viewEpoch;transitionTimer=setTimeout(()=>{if(epoch!==viewEpoch)return;rewardReady=true;const b=document.querySelector('[data-action="reward-next"]');if(b)b.disabled=false;},1000);}
+function continueReward(){if(!rewardReady||!AppState.rewardFlow?.selected)return;const resume=AppState.rewardFlow.resume;AppState.rewardFlow=null;rewardReady=false;if(resume==='after-mini')advanceAfterMini();else{ensureRewardFlow();go('course');}}
+/* SCREENS — existing lessons plus character and gift views. */
+function renderHome(){return `<section class="screen"><div class="home"><div class="home-copy"><p class="eyebrow">A little adventure in English</p><h1>ABC<br> <em>Adventure</em></h1><p class="subline">Учим буквы вместе с жирафиком</p><div class="home-actions"><button class="primary" data-action="start">${AppState.started?'CONTINUE':'START'} ${icons.arrow}</button>${AppState.started?'<button class="text-button" data-action="reset">START OVER</button>':''}</div></div><div class="hero-scene"><span class="floating-letter tile-a" aria-hidden="true">A</span><span class="floating-letter tile-b" aria-hidden="true">B</span><span class="floating-letter tile-c" aria-hidden="true">C</span><div class="speech-bubble">Привет! Давай играть.</div>${renderCharacter("home")}<span class="spark" aria-hidden="true">✦</span></div></div>${journeyStrip()}</section>`;}
+function lessonTop(){const c=AppState.cursor;return `<div class="lesson-top"><span class="lesson-label">УЧИМ ${escapeHTML(letters[c.index].letter)}</span><div class="step-track" role="progressbar" aria-label="Lesson steps" aria-valuemin="0" aria-valuemax="5" aria-valuenow="${c.step+1}">${Array.from({length:5},(_,i)=>`<span class="${i<=c.step?'done':''}"></span>`).join('')}</div></div>`;}
 function panelStyle(d){return `style="--accent:${d.color||'#17664c'};--tint:${d.tint||'#dff4e7'}"`;}
-function renderLearnLetter(){const d=letters[AppState.cursor.index];return `${lessonTop()}<section class="lesson-panel" ${panelStyle(d)}><div class="alfie-line">${robot()}<span>Let's learn ${escapeHTML(d.letter)}!</span></div><h1 class="letter-pair" id="audio-focus" tabindex="-1" aria-label="${d.letter}, lowercase ${d.lowercase}">${escapeHTML(d.letter)}<span>${escapeHTML(d.lowercase)}</span></h1><p class="sound-label">${escapeHTML(d.letter)} says /${escapeHTML(d.sound)}/</p><button class="repeat" data-action="repeat" aria-label="Hear the letter name and sound">${icons.speaker} Listen</button></section><div class="lesson-actions"><button class="primary" data-action="next">LET'S GO ${icons.arrow}</button></div>`;}
-function renderWordScreen(){const d=letters[AppState.cursor.index];return `${lessonTop()}<section class="lesson-panel" ${panelStyle(d)}><div class="alfie-line">${robot()}<span>${escapeHTML(d.letter)} is for...</span></div><div class="word-art" id="audio-focus">${media(d,'picture')}</div><h1 class="word-label" tabindex="-1"><strong>${escapeHTML(d.word[0])}</strong>${escapeHTML(d.word.slice(1))}</h1><button class="repeat" data-action="repeat" aria-label="Hear ${d.letter}, ${d.word}">${icons.speaker} Listen</button></section><div class="lesson-actions"><button class="primary" data-action="next">LET'S PLAY ${icons.arrow}</button></div>`;}
-function questionPrompt(q){const d=byLetter.get(q.letter);return {find:`Find ${d.letter}!`,letterPicture:`Which one starts with ${d.letter}?`,pictureLetter:`${d.word} starts with...`,wordPicture:`Find ${d.word}!`,lowercase:`Find little ${d.letter}!`}[q.type];}
+function renderLearnLetter(){const d=letters[AppState.cursor.index];return `${lessonTop()}<section class="lesson-panel" ${panelStyle(d)}><div class="alfie-line">${buddy()}<span>Знакомься: ${escapeHTML(d.letter)}</span></div><h1 class="letter-pair" id="audio-focus" tabindex="-1" aria-label="${d.letter}, lowercase ${d.lowercase}">${escapeHTML(d.letter)}<span>${escapeHTML(d.lowercase)}</span></h1><p class="sound-label">Звук /${escapeHTML(d.sound)}/</p><button class="repeat" data-action="repeat" aria-label="Hear the letter name and sound">${icons.speaker} Послушать</button></section><div class="lesson-actions"><button class="primary" data-action="next">LET'S GO ${icons.arrow}</button></div>`;}
+function renderWordScreen(){const d=letters[AppState.cursor.index];return `${lessonTop()}<section class="lesson-panel" ${panelStyle(d)}><div class="alfie-line">${buddy()}<span>${escapeHTML(d.letter)} — как в слове…</span></div><div class="word-art" id="audio-focus">${media(d,'picture')}</div><h1 class="word-label" tabindex="-1"><strong>${escapeHTML(d.word[0])}</strong>${escapeHTML(d.word.slice(1))}</h1><button class="repeat" data-action="repeat" aria-label="Hear ${d.letter}, ${d.word}">${icons.speaker} Послушать</button></section><div class="lesson-actions"><button class="primary" data-action="next">LET'S PLAY ${icons.arrow}</button></div>`;}
+function questionPrompt(q){const d=byLetter.get(q.letter);return {find:`Найди букву ${d.letter}`,letterPicture:`Что начинается с ${d.letter}?`,pictureLetter:`С какой буквы начинается ${d.word}?`,wordPicture:`Найди ${d.word}`,lowercase:`Найди маленькую ${d.letter}`}[q.type];}
 function questionBody(q){const d=byLetter.get(q.letter),pictures=['letterPicture','wordPicture'].includes(q.type);
  let cue=q.type==='pictureLetter'?media(d,'picture'):q.type==='letterPicture'?escapeHTML(d.letter):q.type==='lowercase'?`${escapeHTML(d.letter)}<span class="arrow" aria-hidden="true">→</span><span aria-hidden="true">?</span>`:q.type==='wordPicture'?icons.speaker:'?';
- return `<section class="lesson-panel" ${panelStyle(d)}><h1 class="lesson-heading" tabindex="-1">${escapeHTML(questionPrompt(q))}</h1><div class="question-cue ${q.type==='find'?'small-cue':''}" aria-hidden="true">${cue}</div><div class="choices" role="group" aria-label="Choose an answer">${q.options.map(l=>{const option=byLetter.get(l),label=pictures?option.word:q.type==='lowercase'?option.lowercase:l;return `<button class="choice" data-answer="${escapeHTML(l)}" aria-label="${escapeHTML(label)}">${pictures?media(option,'picture'):escapeHTML(label)}</button>`;}).join('')}</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div><button class="repeat question-repeat" data-action="repeat" aria-label="Repeat the question">${icons.speaker} Listen again</button></section>`;
+ return `<section class="lesson-panel" ${panelStyle(d)}><h1 class="lesson-heading" tabindex="-1">${escapeHTML(questionPrompt(q))}</h1><div class="question-cue ${q.type==='find'?'small-cue':''}" aria-hidden="true">${cue}</div><div class="choices" role="group" aria-label="Choose an answer">${q.options.map(l=>{const option=byLetter.get(l),label=pictures?option.word:q.type==='lowercase'?option.lowercase:l;return `<button class="choice" data-answer="${escapeHTML(l)}" aria-label="${escapeHTML(label)}">${pictures?media(option,'picture'):escapeHTML(label)}</button>`;}).join('')}</div><div class="feedback" id="feedback" role="status" aria-live="polite"></div><button class="repeat question-repeat" data-action="repeat" aria-label="Repeat the question">${icons.speaker} Послушать ещё</button></section>`;
 }
 function renderFindLetter(q){return questionBody(q);}function renderLetterToPicture(q){return questionBody(q);}function renderPictureToLetter(q){return questionBody(q);}
 function dots(index,count){return `<div class="dots" role="progressbar" aria-label="Challenge progress" aria-valuemin="0" aria-valuemax="${count}" aria-valuenow="${index}">${Array.from({length:count},(_,i)=>`<span class="dot ${i<index?'done':i===index?'active':''}"></span>`).join('')}</div>`;}
 function renderGame(final=false){const q=ensureQuestion();return `${dots(AppState.game.index,final?FINAL_LENGTH:MINI_LENGTH)}${questionBody(q)}`;}
 function renderMiniGame(){return renderGame(false);}function renderFinalChallenge(){return renderGame(true);}
 function renderInterlude(kind){const c=AppState.cursor,group=groups[Math.floor(c.index/GROUP_SIZE)],range=letters.map(d=>d.letter).join('');
- if(kind==='letterReward'){const d=letters[c.index];return `<section class="interlude"><div class="group-badge">${escapeHTML(d.letter)} ★</div><h1>Great job!</h1><p>A new piece for your rocket.</p>${rocketSVG()}<button class="primary" data-action="after-letter">LET'S GO ${icons.arrow}</button></section>`;}
- const isFinal=kind==='finalIntro',isResult=kind==='miniResult';return `<section class="interlude">${robot()}<div class="group-badge">${escapeHTML(isFinal?range:group.map(d=>d.letter).join(' '))}</div><h1>${isResult?'Great job!':isFinal?'The big challenge!':'Mini Challenge!'}</h1><div class="stars" aria-label="Three stars">★★★</div><p>${isResult?'Ready for the next adventure?':isFinal?'One more adventure. Ready to fly?':"Let's play with your new letters."}</p><button class="primary" data-action="${isResult?'after-mini':isFinal?'play-final':'play-mini'}">${isResult?'LET’S GO':'PLAY'} ${icons.arrow}</button></section>`;
+ if(kind==='letterReward'){const d=letters[c.index];return `<section class="interlude">${buddy()}<div class="group-badge">${escapeHTML(d.letter)} ★</div><h1>Молодец!</h1><p>Ты подружился с буквой ${escapeHTML(d.letter)}.</p><div class="stars" aria-hidden="true">★</div><button class="primary" data-action="after-letter">Дальше ${icons.arrow}</button></section>`;}
+ const isFinal=kind==='finalIntro',isResult=kind==='miniResult';return `<section class="interlude">${buddy()}<div class="group-badge">${escapeHTML(isFinal?range:group.map(d=>d.letter).join(' '))}</div><h1>${isResult?'Уровень пройден!':isFinal?'Большая игра!':'Мини-игра!'}</h1><div class="stars" aria-label="Три звезды">★★★</div><p>${isResult?'Отправляемся дальше?':isFinal?'Вспомним все буквы. Готов?':'Поиграем с новыми буквами.'}</p><button class="primary" data-action="${isResult?'after-mini':isFinal?'play-final':'play-mini'}">${isResult?'Дальше':'Играть'} ${icons.arrow}</button></section>`;
 }
-function renderResults(){const all=letters.every(d=>AppState.stats[d.letter].mastery===3);return `<section class="interlude"><p class="eyebrow">Mission complete</p><h1>Great job!</h1><p>You learned ${escapeHTML(letters[0].letter)}–${escapeHTML(letters.at(-1).letter)}!</p>${rocketSVG(all)}<div class="stars" aria-label="${letters.length} stars">${'★'.repeat(Math.min(letters.length,6))}</div><button class="primary" data-action="replay">PLAY AGAIN ${icons.arrow}</button><button class="text-button" data-action="progress">MY ROCKET</button></section>`;}
-function renderProgress(){return `<section class="screen progress-screen"><p class="eyebrow">My adventure</p><h1>Ready, set, rocket!</h1><p>Every letter earns a star.</p>${rocketSVG()}${letterStrip()}<button class="primary" data-action="back">LET'S GO ${icons.arrow}</button></section>`;}
+function renderResults(){return `<section class="interlude"><p class="eyebrow">Все задания пройдены</p><h1>У тебя получилось!</h1><p>Ты выучил буквы ${escapeHTML(letters[0].letter)}–${escapeHTML(letters.at(-1).letter)}!</p>${renderCharacter()}<div class="stars" aria-label="${letters.length} звёзд">${'★'.repeat(Math.min(letters.length,6))}</div><button class="primary" data-action="replay">Играть ещё ${icons.arrow}</button><button class="text-button" data-action="progress">👕 Жирафик</button></section>`;}
 function renderCourse(){const c=AppState.cursor;let content;if(c.phase==='lesson'){if(c.step===0)content=renderLearnLetter();else if(c.step===1)content=renderWordScreen();else{const q=ensureQuestion();content=lessonTop()+({find:renderFindLetter,letterPicture:renderLetterToPicture,pictureLetter:renderPictureToLetter}[q.type])(q);}}
  else if(c.phase==='mini')content=renderMiniGame();else if(c.phase==='final')content=renderFinalChallenge();else if(c.phase==='results')content=renderResults();else content=renderInterlude(c.phase);
  return `<div class="screen learning">${content}${c.phase==='lesson'?journeyStrip():''}</div>`;}
-function showScreen(finishFeedback=null){
- viewEpoch++;const epoch=viewEpoch;clearTimeout(transitionTimer);transitionTimer=null;answerLocked=false;if(!finishFeedback)stopAudio();$('#confetti').replaceChildren();
- $('#main').innerHTML=view==='home'?renderHome():view==='progress'?renderProgress():renderCourse();
+function showScreen(){
+ viewEpoch++;const epoch=viewEpoch;clearTimeout(transitionTimer);transitionTimer=null;answerLocked=false;stopAudio();$('#confetti').replaceChildren();
+ $('#main').innerHTML=view==='home'?renderHome():view==='progress'?renderWardrobe():view==='reward'?renderReward():renderCourse();
  if(DEMO)$('#main').insertAdjacentHTML('beforeend','<div class="demo-bar" lang="ru"><span>DEMO · отдельный прогресс</span><button data-action="demo-next">Следующий этап →</button></div>');
  $('#home-button').classList.toggle('hide',view==='home');updateSoundButton();wireMedia();
- if(view==='course'){
-  // Let short praise finish over the new screen; navigation and Listen can interrupt.
-  if(finishFeedback){repeatInstruction=()=>announceScreen();finishFeedback.then(()=>{if(epoch===viewEpoch&&view==='course')announceScreen();});}
-  else announceScreen();
- }else repeatInstruction=()=>{};
+ announceScreen();
  if(view!=='home'){const heading=$('#main h1');heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}
  window.scrollTo({top:0,behavior:'auto'});log(view,AppState.cursor);
 }
-function go(next){view=next;saveProgress();showScreen();}
+function go(next){if(next==='course'){ensureRewardFlow();if(AppState.rewardFlow)next='reward';}view=next;if(view==='reward')rewardReady=Boolean(AppState.rewardFlow?.selected);saveProgress();showScreen();}
 function announceScreen(){const c=AppState.cursor,d=letters[c.index];
- if(c.phase==='lesson'&&c.step===0)setInstruction(async t=>{await speak('This is',t);await playLetterName(d,t);if(d.soundAudio)await speak(`${d.letter} says`,t);await playLetterSound(d,t);});
- else if(c.phase==='lesson'&&c.step===1)setInstruction(async t=>{await playLetterName(d,t);await playWord(d,t);});
- else if(['mini','final'].includes(c.phase)||(c.phase==='lesson'&&c.step>=2))setInstruction(t=>speak(questionPrompt(AppState.question),t));
- else setInstruction(t=>speak(c.phase==='results'?'Great job! You did it!':c.phase==='letterReward'?'Amazing! A new piece for your rocket!':c.phase==='miniResult'?'Great job!':"Let's play!",t));
+ if(view==='home'){setInstruction([ru('welcome')]);return;}
+ if(view==='progress'){setInstruction([ru('dress_giraffe')]);return;}
+ if(view==='reward'){setInstruction(AppState.rewardFlow?.selected?[ru('new_clothes'),ru('giraffe_happy')]:[ru('level_complete'),ru('reward'),ru('choose_reward')]);return;}
+ if(c.phase==='lesson'&&c.step===0)setInstruction([ru('new_letter'),enName(d),enSound(d),enWord(d)]);
+ else if(c.phase==='lesson'&&c.step===1)setInstruction([ru('listen_word'),enName(d),enWord(d)]);
+ else if(['mini','final'].includes(c.phase)||(c.phase==='lesson'&&c.step>=2)){
+  const q=AppState.question,target=byLetter.get(q.letter),command={find:'find_letter',letterPicture:'which_starts',pictureLetter:'which_letter',wordPicture:'find_picture',lowercase:'find_small_letter'}[q.type];
+  setInstruction([ru(command),['pictureLetter','wordPicture'].includes(q.type)?enWord(target):enName(target)]);
+ }else setInstruction(c.phase==='results'?[ru('all_done'),ru('giraffe_happy')]:c.phase==='letterReward'?[ru('well_done'),enName(d)]:c.phase==='miniResult'?[ru('level_complete')]:[ru(c.phase==='finalIntro'?'final_challenge':'challenge')]);
 }
 function begin(){unlockAudio();AppState.started=true;go('course');}
 function nextLessonStep(){if(answerLocked)return;AppState.cursor.step++;AppState.question=null;go('course');}
@@ -1558,32 +1592,32 @@ function advanceAfterMini(){const c=AppState.cursor;if(c.index===letters.length-
 function completeQuestion(){const c=AppState.cursor,q=AppState.question;
  registerCorrectAnswer(q);
  if(c.phase==='lesson'){if(c.step<4)c.step++;else c.phase='letterReward';}
- else{AppState.game.recent.push(q.letter);AppState.game.recent=AppState.game.recent.slice(-3);AppState.game.index++;const length=c.phase==='final'?FINAL_LENGTH:MINI_LENGTH;if(AppState.game.index>=length){if(c.phase==='final'){c.phase='results';AppState.completed=true;}else c.phase='miniResult';AppState.game=null;}}
+ else{AppState.game.recent.push(q.letter);AppState.game.recent=AppState.game.recent.slice(-3);AppState.game.index++;const length=c.phase==='final'?FINAL_LENGTH:MINI_LENGTH;if(AppState.game.index>=length){if(c.phase==='final'){c.phase='results';AppState.completed=true;}else {c.phase='miniResult';finishBlock();}AppState.game=null;}}
  AppState.question=null;saveProgress();
 }
 function celebrate(){const box=$('#confetti');box.innerHTML=Array.from({length:15},(_,i)=>`<i style="--x:${Math.round((Math.random()-.5)*430)}px;--y:${Math.round((Math.random()-.55)*400)}px;--r:${Math.round(Math.random()*300)}deg;color:${['#e4ad25','#4d9873','#a98acc','#ed9058'][i%4]}">${i%3?'✦':'★'}</i>`).join('');}
 function checkAnswer(button){
  if(answerLocked||!AppState.question)return;answerLocked=true;unlockAudio();stopAudio();const q=AppState.question,correct=button.dataset.answer===q.letter;
  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
- if(!correct){registerMistake(q);button.classList.add('wrong');$('#feedback').textContent='Try again!';audioSequence(t=>speak('Try again!',t));const epoch=viewEpoch;transitionTimer=setTimeout(()=>{if(epoch!==viewEpoch)return;answerLocked=false;button.classList.remove('wrong');document.querySelectorAll('.choice').forEach(b=>b.disabled=false);button.focus({preventScroll:true});},DEMO?100:700);return;}
- const d=byLetter.get(q.letter);button.classList.add('correct');celebrate();chime();const praise=['Great!','Yes!','Good job!','Amazing!'][Math.floor(Math.random()*4)];
- $('#feedback').textContent=['letterPicture','pictureLetter','wordPicture'].includes(q.type)?`${d.letter} → ${d.word} ${d.emoji}`:q.type==='lowercase'?`${d.letter} → ${d.lowercase} ★`:praise;
- const finishFeedback=audioSequence(t=>speak(['letterPicture','pictureLetter','wordPicture'].includes(q.type)?`${d.name||d.letter}! ${d.word}!`:q.type==='lowercase'?'Good job!':praise,t));
+ if(!correct){registerMistake(q);button.classList.add('wrong');$('#feedback').textContent='Попробуй ещё раз!';AudioManager.play(ru('try_again'));const epoch=viewEpoch;transitionTimer=setTimeout(()=>{if(epoch!==viewEpoch)return;answerLocked=false;button.classList.remove('wrong');document.querySelectorAll('.choice').forEach(b=>b.disabled=false);button.focus({preventScroll:true});},DEMO?100:700);return;}
+ const d=byLetter.get(q.letter);button.classList.add('correct');celebrate();const praise=getRandomItems(['correct','great','well_done','super','amazing'],1)[0];
+ $('#feedback').textContent=['letterPicture','pictureLetter','wordPicture'].includes(q.type)?`${d.letter} → ${d.word} ${d.emoji}`:q.type==='lowercase'?`${d.letter} → ${d.lowercase} ★`:AUDIO_TEXT[praise];
+ const finishFeedback=AudioManager.playSequence([ru(praise),enName(d),enWord(d)]);
  // Commit the next position immediately. Closing during confetti never counts twice.
  completeQuestion();document.querySelectorAll('#main button').forEach(b=>b.disabled=true);
- const epoch=viewEpoch;transitionTimer=setTimeout(()=>{if(epoch===viewEpoch)showScreen(finishFeedback);},DEMO?100:1100);
+ const epoch=viewEpoch;transitionTimer=setTimeout(()=>{finishFeedback.then(()=>{if(epoch!==viewEpoch)return;if(AppState.rewardFlow){view='reward';rewardReady=Boolean(AppState.rewardFlow.selected);}showScreen();});},DEMO?100:1100);
 }
 function updateSoundButton(){const b=$('#sound-button');b.textContent=AppState.soundEnabled?'🔊':'🔇';b.setAttribute('aria-label',AppState.soundEnabled?'Turn sound off':'Turn sound on');b.setAttribute('aria-pressed',String(!AppState.soundEnabled));}
-function toggleSound(){unlockAudio();AppState.soundEnabled=!AppState.soundEnabled;stopAudio();saveProgress();updateSoundButton();if(AppState.soundEnabled&&view==='course'&&!answerLocked)repeatInstruction();}
+function toggleSound(){unlockAudio();AppState.soundEnabled=!AppState.soundEnabled;AudioManager.setEnabled(AppState.soundEnabled);saveProgress();updateSoundButton();if(AppState.soundEnabled&&!answerLocked)repeatInstruction();}
 function openProgress(){if(view==='progress'){go(lastView);return;}lastView=view;go('progress');}
 /* Dialogs trap focus, support Escape, and always confirm an explicit reset. */
-function openModal(html){stopAudio();const layer=$('#modal-layer');if(layer.hidden)restoreFocus=document.activeElement;layer.innerHTML=`<section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" lang="ru">${html}</section>`;layer.hidden=false;$('#app').inert=true;layer.querySelector('button')?.focus();wireMedia();}
+function openModal(html){if(answerLocked)go('course');stopAudio();const layer=$('#modal-layer');if(layer.hidden)restoreFocus=document.activeElement;layer.innerHTML=`<section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" lang="ru">${html}</section>`;layer.hidden=false;$('#app').inert=true;layer.querySelector('button')?.focus();wireMedia();}
 function closeModal(){const layer=$('#modal-layer');layer.hidden=true;layer.replaceChildren();$('#app').inert=false;if(restoreFocus?.isConnected)restoreFocus.focus();}
-function showReset(){openModal(`<div class="modal-head"><h2 id="modal-title">Начать сначала?</h2></div><p>Все звёзды и собранная ракета исчезнут. Настройка звука сохранится.</p><div class="modal-actions"><button class="secondary" data-action="close-modal">Продолжить игру</button><button class="primary" data-action="confirm-reset">Начать заново</button></div>`);}
-function resetProgress(){const sound=AppState.soundEnabled;stopAudio();clearTimeout(transitionTimer);Object.assign(AppState,initialState(),{soundEnabled:sound});closeModal();go('home');}
+function showReset(){openModal(`<div class="modal-head"><h2 id="modal-title">Начать сначала?</h2></div><p>Все звёзды и подарки будут сброшены. Жирафик снова будет без одежды. Настройка звука сохранится.</p><div class="modal-actions"><button class="secondary" data-action="close-modal">Продолжить игру</button><button class="primary" data-action="confirm-reset">Начать заново</button></div>`);}
+function resetProgress(){const sound=AppState.soundEnabled;stopAudio();clearTimeout(transitionTimer);Object.assign(AppState,initialState(),{soundEnabled:sound});rewardReady=false;AudioManager.setEnabled(sound);closeModal();go('home');}
 function showParentGate(){openModal(`<div class="modal-head"><h2 id="modal-title">Для родителей</h2><button class="icon-button" data-action="close-modal" aria-label="Закрыть">×</button></div><p>Можно удерживать Parents две секунды или ответить:</p><p style="font-size:32px;font-weight:800;color:var(--ink);margin-top:20px">Сколько будет 7 + 5?</p><div class="modal-actions"><button class="secondary" data-action="gate-retry">10</button><button class="primary" data-action="parent-view">12</button><button class="secondary" data-action="gate-retry">14</button></div><p id="gate-message" role="status" style="min-height:24px;margin-top:15px"></p>`);}
 function renderParentView(){const totals=Object.values(AppState.stats).reduce((a,s)=>({attempts:a.attempts+s.attempts,correct:a.correct+s.correct,mistakes:a.mistakes+s.mistakes}),{attempts:0,correct:0,mistakes:0});
- openModal(`<div class="modal-head"><h2 id="modal-title">Для родителей</h2><button class="icon-button" data-action="close-modal" aria-label="Закрыть">×</button></div><p>Звезда — три связи: найти букву, выбрать картинку и узнать букву по картинке.</p><div class="stats-totals"><div><b>${totals.attempts}</b>Всего ответов</div><div><b>${totals.correct}</b>Правильных</div><div><b>${totals.mistakes}</b>Ошибок</div></div><table class="stats-table"><thead><tr><th>Буква</th><th>Освоение</th><th>Связи</th><th>Ошибки</th></tr></thead><tbody>${letters.map(d=>{const s=AppState.stats[d.letter],status=s.mastery===3?'★ Освоена':!s.attempts?'Ещё впереди':s.practiceDebt?'Повторяем':'Изучаем';return `<tr><td>${escapeHTML(d.letter)}</td><td class="status-tag">${status}</td><td>${s.mastery} / 3</td><td>${s.mistakes}</td></tr>`;}).join('')}</tbody></table><p>При ошибке буква чаще встречается в играх. Исправленный ответ тоже считается успешной связью.</p><p style="margin-top:12px">Озвучка: ${'speechSynthesis'in window?(englishVoice?escapeHTML(englishVoice.name):'английский голос устройства'):'на этом устройстве недоступна'}. Без записанных фонем Alfie произносит начальный звук в составе слова. Для точной фонетики добавьте записи звуков.</p><p style="margin-top:12px">Прогресс хранится только в этом браузере${DEMO?' (отдельный деморежим)':''}.</p><div class="modal-actions"><button class="secondary" data-action="close-modal">В игру</button><button class="secondary" data-action="reset">Сбросить прогресс</button></div>`);
+ openModal(`<div class="modal-head"><h2 id="modal-title">Для родителей</h2><button class="icon-button" data-action="close-modal" aria-label="Закрыть">×</button></div><p>Звезда — три связи: найти букву, выбрать картинку и узнать букву по картинке.</p><div class="stats-totals"><div><b>${totals.attempts}</b>Всего ответов</div><div><b>${totals.correct}</b>Правильных</div><div><b>${totals.mistakes}</b>Ошибок</div></div><table class="stats-table"><thead><tr><th>Буква</th><th>Освоение</th><th>Связи</th><th>Ошибки</th></tr></thead><tbody>${letters.map(d=>{const s=AppState.stats[d.letter],status=s.mastery===3?'★ Освоена':!s.attempts?'Ещё впереди':s.practiceDebt?'Повторяем':'Изучаем';return `<tr><td>${escapeHTML(d.letter)}</td><td class="status-tag">${status}</td><td>${s.mastery} / 3</td><td>${s.mistakes}</td></tr>`;}).join('')}</tbody></table><p>При ошибке буква чаще встречается в играх. Исправленный ответ тоже считается успешной связью.</p><p style="margin-top:12px">Озвучка: готовые записи из audio/. Инструкции — по-русски, буквы, звуки и слова — по-английски. Между репликами пауза 0,5 секунды.</p><p style="margin-top:12px">Прогресс хранится только в этом браузере${DEMO?' (отдельный деморежим)':''}.</p><div class="modal-actions"><button class="secondary" data-action="close-modal">В игру</button><button class="secondary" data-action="reset">Сбросить прогресс</button></div>`);
 }
 let holdTimer=null;
 function startHold(event){if(event.type==='keydown'&&![' ','Enter'].includes(event.key))return;if(event.type==='keydown'){event.preventDefault();if(event.repeat)return;}if(event.type==='pointerdown'&&event.button!==0)return;cancelHold();$('#parent-button').classList.add('holding');holdTimer=setTimeout(()=>{cancelHold();renderParentView();},2000);}
@@ -1591,12 +1625,16 @@ function cancelHold() {clearTimeout(holdTimer);holdTimer=null;$('#parent-button'
 $('#parent-button').addEventListener('click',()=>{if($('#modal-layer').hidden)showParentGate();});
 $('#parent-button').addEventListener('pointerdown',startHold);$('#parent-button').addEventListener('keydown',startHold);['pointerup','pointerleave','pointercancel','keyup','blur','contextmenu'].forEach(type=>$('#parent-button').addEventListener(type,event=>{if(type==='contextmenu')event.preventDefault();const shortKey=type==='keyup'&&[' ','Enter'].includes(event.key)&&holdTimer!==null;cancelHold();if(shortKey&&$('#modal-layer').hidden)showParentGate();}));
 $('#sound-button').addEventListener('click',toggleSound);$('#home-button').innerHTML=icons.home;$('#home-button').addEventListener('click',()=>go('home'));$('#progress-button').addEventListener('click',openProgress);
-const actions={'parent-view':renderParentView,'gate-retry':()=>{$('#gate-message').textContent='Попробуйте ещё раз.';},start:begin,next:nextLessonStep,repeat:()=>{unlockAudio();const focus=$('#audio-focus');if(focus){focus.classList.remove('pulsing');void focus.offsetWidth;focus.classList.add('pulsing');}repeatInstruction();},'after-letter':advanceAfterLetter,'play-mini':()=>startGame(false),'play-final':()=>startGame(true),'after-mini':advanceAfterMini,reset:showReset,'confirm-reset':resetProgress,'close-modal':closeModal,progress:openProgress,back:()=>go(lastView),replay:()=>{AppState.cursor.phase='finalIntro';AppState.question=null;go('course');},'demo-next':()=>{if(!DEMO)return;if(view==='home')begin();else if(view==='progress')go(lastView);else{const c=AppState.cursor;if(c.phase==='lesson'){if(c.step<2)nextLessonStep();else checkAnswer(document.querySelector(`[data-answer="${AppState.question.letter}"]`));}else if(['mini','final'].includes(c.phase))checkAnswer(document.querySelector(`[data-answer="${AppState.question.letter}"]`));else if(c.phase==='letterReward')advanceAfterLetter();else if(c.phase==='miniIntro')startGame();else if(c.phase==='miniResult')advanceAfterMini();else if(c.phase==='finalIntro')startGame(true);else actions.replay();}}};
-document.addEventListener('click',event=>{const button=event.target.closest('button');if(!button||button.disabled)return;if(button.hasAttribute('data-answer'))checkAnswer(button);else if(actions[button.dataset.action])actions[button.dataset.action]();});
+/* EVENTS */
+const actions={'claim-reward':b=>chooseReward(b.dataset.item),'reward-next':continueReward,equip:b=>{if(equipItem(b.dataset.item))showScreen();},'parent-view':renderParentView,'gate-retry':()=>{$('#gate-message').textContent='Попробуйте ещё раз.';},start:begin,next:nextLessonStep,repeat:()=>{unlockAudio();const focus=$('#audio-focus');if(focus){focus.classList.remove('pulsing');void focus.offsetWidth;focus.classList.add('pulsing');}repeatInstruction();},'after-letter':advanceAfterLetter,'play-mini':()=>startGame(false),'play-final':()=>startGame(true),'after-mini':advanceAfterMini,reset:showReset,'confirm-reset':resetProgress,'close-modal':closeModal,progress:openProgress,back:()=>go(lastView),replay:()=>{AppState.cursor.phase='finalIntro';AppState.question=null;go('course');},'demo-next':()=>{if(!DEMO)return;if(view==='home')begin();else if(view==='progress')go(lastView);else if(view==='reward'){if(AppState.rewardFlow?.selected)continueReward();}else{const c=AppState.cursor;if(c.phase==='lesson'){if(c.step<2)nextLessonStep();else checkAnswer(document.querySelector(`[data-answer="${AppState.question.letter}"]`));}else if(['mini','final'].includes(c.phase))checkAnswer(document.querySelector(`[data-answer="${AppState.question.letter}"]`));else if(c.phase==='letterReward')advanceAfterLetter();else if(c.phase==='miniIntro')startGame();else if(c.phase==='miniResult')advanceAfterMini();else if(c.phase==='finalIntro')startGame(true);else actions.replay();}}};
+document.addEventListener('click',event=>{const button=event.target.closest('button');if(!button||button.disabled)return;unlockAudio();if(button.hasAttribute('data-answer'))checkAnswer(button);else if(actions[button.dataset.action])actions[button.dataset.action](button);});
 document.addEventListener('keydown',event=>{const layer=$('#modal-layer');if(layer.hidden)return;if(event.key==='Escape'){event.preventDefault();closeModal();}if(event.key==='Tab'){const buttons=[...layer.querySelectorAll('button:not(:disabled)')];const first=buttons[0],last=buttons.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();cancelHold();saveProgress();}});window.addEventListener('pagehide',()=>{stopAudio();saveProgress();});
-// Do not play sound on load; opening the file always presents START / CONTINUE.
+/* INIT — request the five supplied images, never synthesize media at startup. */
+for(const asset of Object.values(MEDIA_ASSETS.images)){const link=document.createElement('link');link.rel='preload';link.as='image';link.href=asset.src;document.head.appendChild(link);}
+// A reward in progress reopens automatically; audio still waits for a gesture.
 showScreen();
+if(AppState.started)saveProgress();
 </script>
 </body>
 </html>
