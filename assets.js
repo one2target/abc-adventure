@@ -183,28 +183,48 @@ const MEDIA_ASSETS = {
     }
   },
   "images": {
+    "accessory_balloon": {
+      "src": "./images/accessory_balloon.png?v=reward2",
+      "width": 1024,
+      "height": 1535
+    },
+    "accessory_bouquet": {
+      "src": "./images/accessory_bouquet.png?v=reward2",
+      "width": 1024,
+      "height": 1536
+    },
+    "background_home": {
+      "src": "./images/background_home.png?v=reward2",
+      "width": 1024,
+      "height": 1536
+    },
+    "background_reward": {
+      "src": "./images/background_reward.png?v=reward2",
+      "width": 1024,
+      "height": 1536
+    },
     "giraffe_base": {
-      "src": "./images/giraffe_base.png",
+      "src": "./images/giraffe_base.png?v=reward2",
       "width": 1024,
       "height": 1536
     },
-    "headwear_01": {
-      "src": "./images/headwear_01.png",
-      "width": 1254,
-      "height": 1254
-    },
-    "headwear_02": {
-      "src": "./images/headwear_02.png",
-      "width": 1254,
-      "height": 1254
-    },
-    "jacket_01": {
-      "src": "./images/jacket_01.png",
+    "giraffe_jacket_racer": {
+      "src": "./images/giraffe_jacket_racer.png?v=reward2",
       "width": 1024,
       "height": 1536
     },
-    "jacket_02": {
-      "src": "./images/jacket_02.png",
+    "giraffe_jacket_stars": {
+      "src": "./images/giraffe_jacket_stars.png?v=reward2",
+      "width": 1024,
+      "height": 1536
+    },
+    "reward_icon_jacket_racer": {
+      "src": "./images/reward_icon_jacket_racer.png?v=reward2",
+      "width": 1024,
+      "height": 1536
+    },
+    "reward_icon_jacket_stars": {
+      "src": "./images/reward_icon_jacket_stars.png?v=reward2",
       "width": 1024,
       "height": 1536
     }
