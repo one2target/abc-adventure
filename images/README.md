@@ -1,4 +1,4 @@
-# Изображения ABC Adventure
+# Изображения ABC Safari
 
 Девять активных PNG перечислены в assets.js. background_home и background_reward — фоны; giraffe_base / giraffe_jacket_stars / giraffe_jacket_racer — полные варианты персонажа; accessory_bouquet / accessory_balloon — верхние слои; reward_icon_jacket_stars / reward_icon_jacket_racer — только иконки карточек.
 

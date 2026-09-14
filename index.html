@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="ABC Safari">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png">
-<meta name="description" content="Английские буквы A–F: записанная озвучка, задания и подарки для жирафика.">
+<meta name="description" content="ABC Safari — английские буквы A–F: записанная озвучка, задания и подарки для жирафика.">
 <title>ABC Safari</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2218%22%20fill%3D%22%2317664c%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2246%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-weight%3D%22bold%22%20font-size%3D%2249%22%20fill%3D%22white%22%3Ea%3C%2Ftext%3E%3C%2Fsvg%3E">
 <style>
@@ -611,6 +611,38 @@ main {
   color:var(--green);
   font-size:20px;
   margin-top:9px;
+}
+.feedback.illustrated {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  width:100%;
+  max-width:560px;
+  min-height:110px;
+}
+.feedback-sticker {
+  display:block;
+  flex:0 1 auto;
+  width:clamp(100px,30vw,160px);
+  max-width:45%;
+  height:auto;
+  max-height:160px;
+  object-fit:contain;
+  opacity:0;
+  pointer-events:none;
+}
+.feedback-message {min-width:0;overflow-wrap:anywhere;}
+.feedback-sticker.ready {opacity:1;animation:feedback-pop .4s ease-out;}
+.feedback-sticker.retry.ready {animation:feedback-soft .35s ease-out;}
+@keyframes feedback-pop {
+  0% {opacity:0;transform:scale(.9);}
+  65% {opacity:1;transform:scale(1.04);}
+  100% {opacity:1;transform:scale(1);}
+}
+@keyframes feedback-soft {
+  from {opacity:0;transform:scale(.96);}
+  to {opacity:1;transform:scale(1);}
 }
 .question-repeat {
   background:transparent;
@@ -1355,7 +1387,11 @@ main {
 .reward-next .primary {width:100%;}
 .reward-next .primary:disabled {opacity:.65;}
 .outfit-category+.outfit-category {margin-top:22px;}
-.dressed .character-actor {animation:pop .5s ease;}
+.dressed .character-actor {animation:character-pop .5s ease;}
+@keyframes character-pop {
+ from {transform:translate(var(--character-x),var(--character-y)) scale(calc(var(--character-scale) * .85));}
+ to {transform:translate(var(--character-x),var(--character-y)) scale(var(--character-scale));}
+}
 @media(max-width:650px){
  .brand{gap:8px;} .brand small{font-size:8px;letter-spacing:1.4px;} .tools .icon-button{width:52px;height:52px;}
  .reward-layout,.wardrobe-layout {grid-template-columns:1fr;gap:12px;margin:12px auto 18px;}
@@ -1379,6 +1415,16 @@ main {
 }
 @media(orientation:landscape) and (max-height:500px){.reward-layout,.wardrobe-layout{grid-template-columns:1fr 1fr;}.character-stage{width:200px;}}
 
+/* A full reaction above the letter badge, with room for the next button. */
+.interlude.letter-completed {min-height:0;padding:16px 5px;}
+.letter-completed .completion-sticker {
+ width:clamp(150px,42vw,190px);max-width:100%;height:auto;max-height:none;
+ flex:none;margin:0 auto 6px;
+}
+.letter-completed .group-badge {margin-top:8px;}
+.letter-completed h1 {margin:12px 0 10px;}
+.letter-completed .stars {margin:8px 0;}
+.letter-completed .primary {margin-top:16px;max-width:100%;}
 
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after {
@@ -1575,6 +1621,7 @@ function media(item,cls=''){return `<span class="${cls}" aria-hidden="true">${it
 function buddy(){return '<span class="mascot" aria-hidden="true">🦒</span>';}
 const failedImages=new Set();
 function wireMedia(){
+ document.querySelectorAll('img[data-feedback-sticker]').forEach(prepareFeedbackSticker);
  document.querySelectorAll('img[data-fallback]').forEach(img=>{const fallback=()=>{img.replaceWith(document.createTextNode(img.dataset.fallback));};img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();});
  document.querySelectorAll('img[data-character-asset]').forEach(img=>{const fallback=()=>{const src=img.getAttribute('src');if(!failedImages.has(src)){failedImages.add(src);console.warn('[Alfie image] Image could not be loaded:',src);}img.hidden=true;if(img.dataset.characterAsset.startsWith('giraffe_'))img.closest('.character-actor')?.classList.add('base-unavailable');};img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback();});
 }
@@ -1652,7 +1699,7 @@ function dots(index,count){return `<div class="dots" role="progressbar" aria-lab
 function renderGame(final=false){const q=ensureQuestion();return `${dots(AppState.game.index,final?FINAL_LENGTH:MINI_LENGTH)}${questionBody(q)}`;}
 function renderMiniGame(){return renderGame(false);}function renderFinalChallenge(){return renderGame(true);}
 function renderInterlude(kind){const c=AppState.cursor,group=groups[Math.floor(c.index/GROUP_SIZE)],range=letters.map(d=>d.letter).join('');
- if(kind==='letterReward'){const d=letters[c.index];return `<section class="interlude">${buddy()}<div class="group-badge">${escapeHTML(d.letter)} ★</div><h1>Молодец!</h1><p>Ты подружился с буквой ${escapeHTML(d.letter)}.</p><div class="stars" aria-hidden="true">★</div><button class="primary" data-action="after-letter">Дальше ${icons.arrow}</button></section>`;}
+ if(kind==='letterReward'){const d=letters[c.index];return `<section class="interlude letter-completed">${renderCompletionSticker()}<div class="group-badge">${escapeHTML(d.letter)} ★</div><h1>Молодец!</h1><p>Ты подружился с буквой ${escapeHTML(d.letter)}.</p><div class="stars" aria-hidden="true">★</div><button class="primary" data-action="after-letter">Дальше ${icons.arrow}</button></section>`;}
  const isFinal=kind==='finalIntro',isResult=kind==='miniResult';return `<section class="interlude">${buddy()}<div class="group-badge">${escapeHTML(isFinal?range:group.map(d=>d.letter).join(' '))}</div><h1>${isResult?'Уровень пройден!':isFinal?'Большая игра!':'Мини-игра!'}</h1><div class="stars" aria-label="Три звезды">★★★</div><p>${isResult?'Отправляемся дальше?':isFinal?'Вспомним все буквы. Готов?':'Поиграем с новыми буквами.'}</p><button class="primary" data-action="${isResult?'after-mini':isFinal?'play-final':'play-mini'}">${isResult?'Дальше':'Играть'} ${icons.arrow}</button></section>`;
 }
 function renderResults(){return `<section class="interlude"><p class="eyebrow">Все задания пройдены</p><h1>У тебя получилось!</h1><p>Ты выучил буквы ${escapeHTML(letters[0].letter)}–${escapeHTML(letters.at(-1).letter)}!</p>${renderCharacter()}<div class="stars" aria-label="${letters.length} звёзд">${'★'.repeat(Math.min(letters.length,6))}</div><button class="primary" data-action="replay">Играть ещё ${icons.arrow}</button><button class="text-button" data-action="progress">👕 Жирафик</button></section>`;}
@@ -1680,7 +1727,7 @@ function announceScreen(){const c=AppState.cursor,d=letters[c.index];
   setInstruction([ru(command),['pictureLetter','wordPicture'].includes(q.type)?enWord(target):enName(target)]);
  }else setInstruction(c.phase==='results'?[ru('all_done'),ru('giraffe_happy')]:c.phase==='letterReward'?[ru('well_done'),enName(d)]:c.phase==='miniResult'?[ru('level_complete')]:[ru(c.phase==='finalIntro'?'final_challenge':'challenge')]);
 }
-function begin(){unlockAudio();AppState.started=true;go('course');}
+function begin(){unlockAudio();AppState.started=true;go('course');preloadFeedbackStickers();}
 function nextLessonStep(){if(answerLocked)return;AppState.cursor.step++;AppState.question=null;go('course');}
 function advanceAfterLetter(){const c=AppState.cursor;if((c.index+1)%GROUP_SIZE===0||c.index===letters.length-1)c.phase='miniIntro';else{c.index++;c.phase='lesson';c.step=0;}AppState.question=null;go('course');}
 function advanceAfterMini(){const c=AppState.cursor;if(c.index===letters.length-1)c.phase='finalIntro';else{c.index++;c.phase='lesson';c.step=0;}AppState.game=null;AppState.question=null;go('course');}
@@ -1691,12 +1738,51 @@ function completeQuestion(){const c=AppState.cursor,q=AppState.question;
  AppState.question=null;saveProgress();
 }
 function celebrate(){const box=$('#confetti');box.innerHTML=Array.from({length:15},(_,i)=>`<i style="--x:${Math.round((Math.random()-.5)*430)}px;--y:${Math.round((Math.random()-.55)*400)}px;--r:${Math.round(Math.random()*300)}deg;color:${['#e4ad25','#4d9873','#a98acc','#ed9058'][i%4]}">${i%3?'✦':'★'}</i>`).join('');}
+/* Answer and completion stickers share one selection history, never saved. */
+const SUCCESS_STICKERS=Array.from({length:9},(_,i)=>`./images/stickers/marius_success_${String(i+1).padStart(2,'0')}.png`);
+const RETRY_STICKER='./images/stickers/marius_retry_01.png';
+let lastSuccessSticker=null,stickersWarmed=false;
+function pickSuccessSticker(){
+ const choices=SUCCESS_STICKERS.filter(src=>SUCCESS_STICKERS.length===1||src!==lastSuccessSticker);
+ lastSuccessSticker=choices.length?choices[Math.floor(Math.random()*choices.length)]:null;
+ return lastSuccessSticker;
+}
+function renderCompletionSticker(){
+ const src=pickSuccessSticker();
+ return src?`<img class="feedback-sticker success completion-sticker" data-feedback-sticker src="${escapeHTML(src)}" width="1254" height="1254" alt="" aria-hidden="true" draggable="false" decoding="async">`:'';
+}
+function prepareFeedbackSticker(img){
+ img.onload=()=>{img.classList.add('ready');};
+ img.onerror=()=>{img.remove();};
+ if(img.complete){if(img.naturalWidth>0)img.onload();else img.onerror();}
+}
+function preloadFeedbackStickers(){
+ if(stickersWarmed||typeof Image==='undefined')return;
+ stickersWarmed=true;
+ // Start after the first user action, two low-priority downloads at a time.
+ const pending=[RETRY_STICKER,...SUCCESS_STICKERS];
+ const next=()=>{const src=pending.shift();if(!src)return;const img=new Image();img.decoding='async';img.fetchPriority='low';img.onload=img.onerror=()=>{img.onload=img.onerror=null;next();};img.src=src;};
+ setTimeout(()=>{next();next();},250);
+}
+function showAnswerFeedback(kind,message){
+ const box=$('#feedback');if(!box)return;
+ const src=kind==='success'?pickSuccessSticker():RETRY_STICKER;
+ const text=document.createElement('span');text.className='feedback-message';text.textContent=message;
+ // Replacing the contents also removes an earlier retry or success sticker.
+ box.replaceChildren();box.classList.add('illustrated');
+ if(src){
+  const img=document.createElement('img');img.className=`feedback-sticker ${kind}`;img.alt='';img.setAttribute('aria-hidden','true');img.draggable=false;img.decoding='async';
+  img.src=src;box.appendChild(img);
+  prepareFeedbackSticker(img);
+ }
+ box.appendChild(text);
+}
 function checkAnswer(button){
  if(answerLocked||!AppState.question)return;answerLocked=true;unlockAudio();stopAudio();const q=AppState.question,correct=button.dataset.answer===q.letter;
  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
- if(!correct){registerMistake(q);button.classList.add('wrong');$('#feedback').textContent='Попробуй ещё раз!';AudioManager.play(ru('try_again'));const epoch=viewEpoch;transitionTimer=setTimeout(()=>{if(epoch!==viewEpoch)return;answerLocked=false;button.classList.remove('wrong');document.querySelectorAll('.choice').forEach(b=>b.disabled=false);button.focus({preventScroll:true});},DEMO?100:700);return;}
+ if(!correct){registerMistake(q);button.classList.add('wrong');showAnswerFeedback('retry','Попробуй ещё раз!');AudioManager.play(ru('try_again'));const epoch=viewEpoch;transitionTimer=setTimeout(()=>{if(epoch!==viewEpoch)return;answerLocked=false;button.classList.remove('wrong');document.querySelectorAll('.choice').forEach(b=>b.disabled=false);button.focus({preventScroll:true});},DEMO?100:700);return;}
  const d=byLetter.get(q.letter);button.classList.add('correct');celebrate();const praise=getRandomItems(['correct','great','well_done','super','amazing'],1)[0];
- $('#feedback').textContent=['letterPicture','pictureLetter','wordPicture'].includes(q.type)?`${d.letter} → ${d.word} ${d.emoji}`:q.type==='lowercase'?`${d.letter} → ${d.lowercase} ★`:AUDIO_TEXT[praise];
+ showAnswerFeedback('success',['letterPicture','pictureLetter','wordPicture'].includes(q.type)?`${d.letter} → ${d.word} ${d.emoji}`:q.type==='lowercase'?`${d.letter} → ${d.lowercase} ★`:AUDIO_TEXT[praise]);
  const finishFeedback=AudioManager.playSequence([ru(praise),enName(d),enWord(d)]);
  // Commit the next position immediately. Closing during confetti never counts twice.
  completeQuestion();document.querySelectorAll('#main button').forEach(b=>b.disabled=true);

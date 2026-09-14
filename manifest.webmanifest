@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "ABC Adventure · Alfie",
-  "short_name": "Alfie ABC",
-  "description": "Буквы A–F, готовая озвучка и подарки для жирафика. Для детей 4–7 лет.",
+  "name": "ABC Safari",
+  "short_name": "ABC Safari",
+  "description": "ABC Safari — Буквы A–F, готовая озвучка и подарки для жирафика. Для детей 4–7 лет.",
   "lang": "ru",
   "start_url": "./",
   "scope": "./",
