@@ -1,32 +1,35 @@
 # ABC Safari — Project map
 
-Карта существующего приложения: обычные HTML, CSS и JavaScript, курс A–F. Все пути ниже — относительно корня этого Git-репозитория. Основная логика и стили находятся в `index.html`; ищите по именам функций и CSS-селекторам. Отдельных каталогов компонентов, сборщика и серверной части нет.
+Карта объединённого проекта: корневой лендинг и прежний тренажёр A–F в play/. Оба используют обычные HTML, CSS и JavaScript. Все пути ниже — относительно корня этого Git-репозитория. Основная логика и стили находятся в `play/index.html`; ищите по именам функций и CSS-селекторам. Отдельных каталогов компонентов, сборщика и серверной части нет.
 
 ## 1. Project entry points
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | HTML-каркас, общий `<style>`, данные курса и основной встроенный `<script>`. В конце запускается `showScreen()`. |
-| `assets.js` | Глобальный `MEDIA_ASSETS`: пути аудио и активных изображений, размеры изображений. Загружается до логики приложения. |
-| `audio-manager.js` | `createAudioManager()`: воспроизведение записей и речевой fallback. Загружается после каталога ресурсов. |
-| `manifest.webmanifest` | Название приложения, запуск, область действия, цвета и иконки для установки на домашний экран. |
+| `index.html` | Лендинг ABC Safari из prototype_v3; TRAINER_URL и четыре data-trainer-link ведут на /play/. |
+| `play/index.html` | HTML-каркас, общий `<style>`, данные курса и основной встроенный `<script>`. В конце запускается `showScreen()`. |
+| `play/assets.js` | Глобальный `MEDIA_ASSETS`: пути аудио и активных изображений, размеры изображений. Загружается до логики приложения. |
+| `play/audio-manager.js` | `createAudioManager()`: воспроизведение записей и речевой fallback. Загружается после каталога ресурсов. |
+| `play/manifest.webmanifest` | Название приложения, запуск, область действия, цвета и иконки для установки на домашний экран. |
 | `README.md` | Запуск, пользовательские сценарии и описание сохранений. |
 
 ## 2. Repository structure
 
 ```text
 /
-├── index.html
-├── assets.js
-├── audio-manager.js
-├── manifest.webmanifest
+├── index.html              # лендинг, адрес /
+├── play/                   # тренажёр, адрес /play/
+│   ├── index.html
+│   ├── assets.js
+│   ├── audio-manager.js
+│   ├── manifest.webmanifest
+│   ├── icon-180.png
+│   ├── icon-192.png
+│   ├── icon-512.png
+│   ├── images/
+│   │   └── stickers/
+│   └── audio/
 ├── .nojekyll
-├── icon-180.png
-├── icon-192.png
-├── icon-512.png
-├── images/                 # сцены, варианты жирафика, аксессуары, иконки наград
-│   └── stickers/           # реакции Marius
-├── audio/                  # MP3 инструкций, букв, звуков и слов
 ├── README.md
 ├── TESTS.md
 ├── UPDATE-REPORT.md
@@ -38,7 +41,7 @@
 
 ## 3. UI
 
-Весь интерфейс — в `index.html`:
+Интерфейс тренажёра — в `play/index.html`. Лендинг имеет собственные стили и скрипт в корневом `index.html`.
 
 - Каркас: `.topbar`, `#main`, `.footer`, `#modal-layer`, `#confetti`.
 - Экраны: `renderHome()`, `renderCourse()`, `renderWardrobe()`, `renderReward()`, `renderResults()`. Учебные экраны: `renderLearnLetter()`, `renderWordScreen()`, `questionBody()`, `renderInterlude()`.
@@ -50,7 +53,7 @@
 
 ## 4. Exercise system
 
-Всё в `index.html`:
+Всё в `play/index.html`:
 
 - `letters` — A–F, слова, звуки, emoji, цвета, отвлекающие буквы. Отдельного хранилища готовых заданий нет.
 - `CORE_TYPES` — `find`, `letterPicture`, `pictureLetter`; `MINI_TYPES` добавляет `wordPicture`, `FINAL_TYPES` — `lowercase`.
@@ -63,7 +66,7 @@
 
 ## 5. Progress and state
 
-`index.html`: `initialState()`, `AppState`, `loadProgress()`, `saveProgress()`, `resetProgress()`.
+`play/index.html`: `initialState()`, `AppState`, `loadProgress()`, `saveProgress()`, `resetProgress()`.
 
 - `cursor` хранит `phase`, индекс буквы и шаг. Фазы: `lesson`, `letterReward`, `miniIntro`, `mini`, `miniResult`, `finalIntro`, `final`, `results`.
 - `stats` по каждой букве: `attempts`, `correct`, `mistakes`, `mastery`, `skills`, `practiceDebt`. Итоги для родителей вычисляет `renderParentView()`.
@@ -75,7 +78,7 @@
 
 ## 6. Rewards
 
-`index.html`: `rewardConfig`, `itemCatalog`, `finishBlock()`, `ensureRewardFlow()`, `chooseReward()`, `continueReward()`.
+`play/index.html`: `rewardConfig`, `itemCatalog`, `finishBlock()`, `ensureRewardFlow()`, `chooseReward()`, `continueReward()`.
 
 После A–C и мини-игры выбирается одна куртка; после D–F и мини-игры — один аксессуар. Завершение блока открывает выбор, а владение выдаёт `chooseReward()`. Он сохраняет выбранную вещь до анимации. Альтернативный предмет остаётся закрытым; `ownsItem()` и `equipItem()` проверяют владение.
 
@@ -83,65 +86,65 @@
 
 ## 7. Marius
 
-- `images/`: полные варианты `giraffe_base.png`, `giraffe_jacket_*.png`; сцены `background_*.png`. Подключение — `assets.js` и `characterConfig` в `index.html`.
+- `play/images/`: полные варианты `giraffe_base.png`, `giraffe_jacket_*.png`; сцены `background_*.png`. Подключение — `play/assets.js` и `characterConfig` в `play/index.html`.
 - `renderCharacter()` выводит персонажа на главной, в гардеробе, при награде и в итогах. `buddy()` выводит emoji-жирафика в учебных экранах; `wireMedia()` обрабатывает ошибки загрузки.
-- Реакции находятся в `images/stickers/`: `marius_success_01.png` … `marius_success_09.png`, `marius_retry_01.png`. Эти пути формируются прямо в `index.html`, вне `MEDIA_ASSETS`.
+- Реакции находятся в `play/images/stickers/`: `marius_success_01.png` … `marius_success_09.png`, `marius_retry_01.png`. Эти пути формируются прямо в `play/index.html`, вне `MEDIA_ASSETS`.
 - `SUCCESS_STICKERS`, `RETRY_STICKER`, `pickSuccessSticker()` выбирают реакцию без повторения успешного стикера подряд. `showAnswerFeedback()` вызывается из `checkAnswer()`; `renderCompletionSticker()` — из `renderInterlude()` при завершении буквы.
 - `prepareFeedbackSticker()` управляет загрузкой/ошибкой; `preloadFeedbackStickers()` запускает фоновую загрузку после начала игры. Внешний вид — `.feedback-sticker`, `.completion-sticker`, анимации `feedback-pop` / `feedback-soft`.
 
 ## 8. Clothing and accessories
 
-Система реализована в `index.html` и использует ресурсы `images/`, зарегистрированные в `assets.js`.
+Система реализована в `play/index.html` и использует ресурсы `play/images/`, зарегистрированные в `play/assets.js`.
 
-- База — `images/giraffe_base.png`. Куртки — полные изображения `giraffe_jacket_stars.png` / `giraffe_jacket_racer.png`, заменяющие базу.
-- Прозрачные аксессуары — `images/accessory_bouquet.png`, `images/accessory_balloon.png`; иконки карточек курток — `images/reward_icon_jacket_*.png`.
+- База — `play/images/giraffe_base.png`. Куртки — полные изображения `giraffe_jacket_stars.png` / `giraffe_jacket_racer.png`, заменяющие базу.
+- Прозрачные аксессуары — `play/images/accessory_bouquet.png`, `play/images/accessory_balloon.png`; иконки карточек курток — `play/images/reward_icon_jacket_*.png`.
 - `renderCharacter()` собирает фон, полный вариант жирафика и слой `handItem`. CSS `.character-stage`, `.character-actor`, `.character-layer` задаёт сцену 2:3 и общую область наложения с `object-fit:contain`.
 - `characterState.ownedItems` хранит владение; `characterState.equipped.giraffeVariant` / `handItem` — надетые предметы. Менять через `chooseReward()` / `equipItem()`; отображение выбора — `outfitOptions()` / `renderWardrobe()`.
-- Старые `images/jacket_*.png` и `images/headwear_*.png` остаются в каталоге, но не подключены через `MEDIA_ASSETS`; старые идентификаторы учитывает `migrateRewards()`.
+- Старые `play/images/jacket_*.png` и `play/images/headwear_*.png` остаются в каталоге, но не подключены через `MEDIA_ASSETS`; старые идентификаторы учитывает `migrateRewards()`.
 
 ## 9. Assets
 
-- `images/` — сцены, персонаж, одежда, аксессуары и изображения карточек; `images/stickers/` — реакции.
-- `audio/` — 60 MP3: нумерованные русские реплики, английские названия/звуки букв, слова и сочетания «буква — слово».
-- `assets.js` — каталог активных изображений и аудио. Стикеры перечисляются отдельно в `index.html`.
-- Учебные буквы выводятся текстом, картинки слов сейчас — emoji (`letters[].image === null`, `media()`). Иконки управления — встроенные SVG в `icons` и emoji; иконки установки — корневые `icon-*.png`.
+- `play/images/` — сцены, персонаж, одежда, аксессуары и изображения карточек; `play/images/stickers/` — реакции.
+- `play/audio/` — 60 MP3: нумерованные русские реплики, английские названия/звуки букв, слова и сочетания «буква — слово».
+- `play/assets.js` — каталог активных изображений и аудио. Стикеры перечисляются отдельно в `play/index.html`.
+- Учебные буквы выводятся текстом, картинки слов сейчас — emoji (`letters[].image === null`, `media()`). Иконки управления — встроенные SVG в `icons` и emoji; иконки установки — корневые `play/icon-*.png`.
 - Отдельной фоновой музыки и отдельного каталога изображений букв нет.
 
 ## 10. Audio
 
-`audio-manager.js`: `createAudioManager()` создаёт один переиспользуемый `Audio`; `unlock()` подготавливает его по жесту пользователя, `play()` / `playSequence()` воспроизводят очередь, `stop()` отменяет её, `setEnabled()` управляет звуком. `setInstruction()` / `repeatLastInstruction()` запоминают и повторяют инструкцию. При отсутствии/ошибке файла используется `speechSynthesis`, если у реплики есть текст.
+`play/audio-manager.js`: `createAudioManager()` создаёт один переиспользуемый `Audio`; `unlock()` подготавливает его по жесту пользователя, `play()` / `playSequence()` воспроизводят очередь, `stop()` отменяет её, `setEnabled()` управляет звуком. `setInstruction()` / `repeatLastInstruction()` запоминают и повторяют инструкцию. При отсутствии/ошибке файла используется `speechSynthesis`, если у реплики есть текст.
 
-`index.html`: `announceScreen()` озвучивает экран/задание, `checkAnswer()` — ошибку или похвалу, `toggleSound()` — настройку звука, действие `repeat` — повтор. `AUDIO_TEXT`, `ru()`, `enName()`, `enSound()`, `enWord()` задают тексты и ключи файлов из `MEDIA_ASSETS.audio`. Между репликами по умолчанию 500 мс; смена экрана останавливает старую очередь.
+`play/index.html`: `announceScreen()` озвучивает экран/задание, `checkAnswer()` — ошибку или похвалу, `toggleSound()` — настройку звука, действие `repeat` — повтор. `AUDIO_TEXT`, `ru()`, `enName()`, `enSound()`, `enWord()` задают тексты и ключи файлов из `MEDIA_ASSETS.audio`. Между репликами по умолчанию 500 мс; смена экрана останавливает старую очередь.
 
 ## 11. Important functions and modules
 
 | Function / Module | File | Purpose |
 | --- | --- | --- |
-| `letters`, `CORE_TYPES`, `rewardConfig` | `index.html` | Данные курса, типы вопросов и условия подарков. |
-| `ensureQuestion()`, `createQuestion()` | `index.html` | Восстановление/генерация текущего задания. |
-| `checkAnswer()`, `completeQuestion()` | `index.html` | Ответ, обратная связь, статистика и следующий этап. |
-| `getWeightedRandomLetter()`, `registerMistake()` | `index.html` | Повторение букв с учётом ошибок. |
-| `go()`, `showScreen()`, `actions` | `index.html` | Переходы, отрисовка и действия кнопок. |
-| `loadProgress()`, `saveProgress()`, `migrateRewards()` | `index.html` | Сохранение и совместимость старого прогресса. |
-| `finishBlock()`, `chooseReward()`, `equipItem()` | `index.html` | Получение и надевание подарков. |
-| `renderCharacter()`, `showAnswerFeedback()` | `index.html` | Сцена персонажа и реакции на ответ. |
-| `announceScreen()` | `index.html` | Последовательности озвучки текущего экрана. |
-| `MEDIA_ASSETS` | `assets.js` | Реальные пути медиа. |
-| `createAudioManager()` | `audio-manager.js` | Загрузка, очередь, отмена, повтор и fallback аудио. |
+| `letters`, `CORE_TYPES`, `rewardConfig` | `play/index.html` | Данные курса, типы вопросов и условия подарков. |
+| `ensureQuestion()`, `createQuestion()` | `play/index.html` | Восстановление/генерация текущего задания. |
+| `checkAnswer()`, `completeQuestion()` | `play/index.html` | Ответ, обратная связь, статистика и следующий этап. |
+| `getWeightedRandomLetter()`, `registerMistake()` | `play/index.html` | Повторение букв с учётом ошибок. |
+| `go()`, `showScreen()`, `actions` | `play/index.html` | Переходы, отрисовка и действия кнопок. |
+| `loadProgress()`, `saveProgress()`, `migrateRewards()` | `play/index.html` | Сохранение и совместимость старого прогресса. |
+| `finishBlock()`, `chooseReward()`, `equipItem()` | `play/index.html` | Получение и надевание подарков. |
+| `renderCharacter()`, `showAnswerFeedback()` | `play/index.html` | Сцена персонажа и реакции на ответ. |
+| `announceScreen()` | `play/index.html` | Последовательности озвучки текущего экрана. |
+| `MEDIA_ASSETS` | `play/assets.js` | Реальные пути медиа. |
+| `createAudioManager()` | `play/audio-manager.js` | Загрузка, очередь, отмена, повтор и fallback аудио. |
 
 ## 12. Common modification paths
 
 ### Where to look when changing...
 
-- Главный экран → `index.html`: `renderHome()`, `.home`, `.hero-scene`.
-- Упражнение/учебный материал → `index.html`: `letters`, типы вопросов, `ensureQuestion()`, `questionBody()`.
-- Проверка ответа → `index.html`: `checkAnswer()`, `registerMistake()`, `registerCorrectAnswer()`, `completeQuestion()`.
-- Реакция Marius → `index.html`: `showAnswerFeedback()`, `pickSuccessSticker()`, `renderCompletionSticker()`; `images/stickers/`.
-- Добавление изображения персонажа → `images/`, `assets.js`, `index.html`: `characterConfig` / `rewardConfig`.
-- Мобильная вёрстка → `index.html`: соответствующий CSS-селектор и все его переопределения в `@media`.
-- Награды → `index.html`: `rewardConfig`, `finishBlock()`, `chooseReward()`, `migrateRewards()`.
-- Сохранение → `index.html`: `initialState()`, `loadProgress()`, `saveProgress()`.
-- Звуки → `audio/`, `assets.js`, `audio-manager.js`; события озвучки — `announceScreen()` в `index.html`.
+- Главный экран → `play/index.html`: `renderHome()`, `.home`, `.hero-scene`.
+- Упражнение/учебный материал → `play/index.html`: `letters`, типы вопросов, `ensureQuestion()`, `questionBody()`.
+- Проверка ответа → `play/index.html`: `checkAnswer()`, `registerMistake()`, `registerCorrectAnswer()`, `completeQuestion()`.
+- Реакция Marius → `play/index.html`: `showAnswerFeedback()`, `pickSuccessSticker()`, `renderCompletionSticker()`; `play/images/stickers/`.
+- Добавление изображения персонажа → `play/images/`, `play/assets.js`, `play/index.html`: `characterConfig` / `rewardConfig`.
+- Мобильная вёрстка → `play/index.html`: соответствующий CSS-селектор и все его переопределения в `@media`.
+- Награды → `play/index.html`: `rewardConfig`, `finishBlock()`, `chooseReward()`, `migrateRewards()`.
+- Сохранение → `play/index.html`: `initialState()`, `loadProgress()`, `saveProgress()`.
+- Звуки → `play/audio/`, `play/assets.js`, `play/audio-manager.js`; события озвучки — `announceScreen()` в `play/index.html`.
 
 ## 13. Sensitive areas
 
@@ -154,25 +157,28 @@
 
 ## 14. Deployment-related files
 
-- `index.html` — статическая точка запуска; подключает соседние файлы относительными путями. `README.md` описывает открытие HTML или запуск через HTTP-сервер.
-- `.nojekyll` — отключает обработку Jekyll при публикации на GitHub Pages.
-- `manifest.webmanifest`, `icon-180.png`, `icon-192.png`, `icon-512.png` — метаданные и иконки установки.
-- `README.md` — ссылка на GitHub Pages и описание публикации корня `main`; `STICKER-UPDATE.md` — сохранённый отчёт о публикации обновления, не источник текущего статуса сервиса.
+- Корневой `index.html` — лендинг по https://abcsafari.ru/. Все CTA тренажёра ведут на `/play/`.
+- `play/index.html` — тренажёр по https://abcsafari.ru/play/; соседние файлы подключаются прежними относительными путями.
+- `play/manifest.webmanifest` и `play/icon-*.png` — метаданные установки тренажёра. Относительные start_url, scope и пути иконок разрешаются внутри /play/.
+- Netlify автоматически публикует существующий проект из GitHub. Перенос не меняет настройки Netlify, DNS, домен или ветку публикации; специальных redirects для существующего каталога /play/ не добавлено.
+- `.nojekyll` сохранён как прежний файл репозитория. Старые отчёты о GitHub Pages являются историей и не определяют нынешний production.
+- `README.md` — актуальные адреса и запуск локального HTTP-сервера из корня проекта.
 
-В репозитории нет workflow-файлов GitHub Actions, `package.json`, конфигурации сборки или service worker. Настройки GitHub Pages находятся вне этих файлов; карта не подтверждает текущий статус удалённого размещения.
+В репозитории нет workflow-файлов, package.json, сборщика, service worker или конфигурации Netlify. Все 92 файла тренажёра перенесены без изменения содержимого; ключи и схема localStorage остаются прежними на том же origin.
 
 ## 15. Quick navigation for Codex
 
 ```text
 TASK → START HERE
 
-UI change → index.html: renderHome / renderCourse / <style>
-Exercise logic → index.html: letters / ensureQuestion / checkAnswer
-Marius → index.html: renderCharacter / showAnswerFeedback; images/stickers/
-Assets → assets.js; images/; audio/
-Rewards → index.html: rewardConfig / chooseReward / equipItem
-Progress → index.html: initialState / loadProgress / saveProgress
-Mobile CSS → index.html: <style> / @media / .character-actor
-Audio → audio-manager.js; index.html: announceScreen; assets.js
-Deployment → README.md; .nojekyll; manifest.webmanifest
+Landing → index.html: TRAINER_URL / data-trainer-link / <style>
+Trainer UI change → play/index.html: renderHome / renderCourse / <style>
+Exercise logic → play/index.html: letters / ensureQuestion / checkAnswer
+Marius → play/index.html: renderCharacter / showAnswerFeedback; play/images/stickers/
+Assets → play/assets.js; play/images/; play/audio/
+Rewards → play/index.html: rewardConfig / chooseReward / equipItem
+Progress → play/index.html: initialState / loadProgress / saveProgress
+Mobile CSS → play/index.html: <style> / @media / .character-actor
+Audio → play/audio-manager.js; play/index.html: announceScreen; play/assets.js
+Deployment → README.md; index.html; .nojekyll; play/manifest.webmanifest
 ```
